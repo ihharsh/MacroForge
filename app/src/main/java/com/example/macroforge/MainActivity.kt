@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MacroForgeTheme {
-                MacroForgeApp()
+                MacroForgeApp1()
             }
         }
     }
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
 @PreviewScreenSizes
 @Composable
-fun MacroForgeApp() {
+fun MacroForgeApp1() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
 
     NavigationSuiteScaffold(
