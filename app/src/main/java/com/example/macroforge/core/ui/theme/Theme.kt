@@ -1,6 +1,5 @@
-package com.example.macroforge.ui.theme
+package com.example.macroforge.core.navigation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

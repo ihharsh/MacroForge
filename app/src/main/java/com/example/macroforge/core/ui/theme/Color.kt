@@ -1,4 +1,4 @@
-package com.example.macroforge.ui.theme
+package com.example.macroforge.core.navigation.theme
 
 import androidx.compose.ui.graphics.Color
 
