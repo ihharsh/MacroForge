@@ -7,7 +7,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.macroforge.core.ui.components.PlaceholderScreen
-
+//TODO()
+// compose navigation guide
+//https://levelup.gitconnected.com/navigation-in-android-jetpack-compose-a-practical-guide-4d8037b07a87
 @Composable
 fun MacroForgeNavHost() {
     val navController = rememberNavController()
