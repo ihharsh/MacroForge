@@ -1,0 +1,1642 @@
+[
+  {
+    "foodId": "f001",
+    "foodName": "Almonds",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 576.7,
+    "carbs": 19.73,
+    "protein": 21.27,
+    "fats": 50.63
+  },
+  {
+    "foodId": "f002",
+    "foodName": "Aloo Gobi",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 86.4,
+    "carbs": 13.6,
+    "protein": 2.0,
+    "fats": 3.51
+  },
+  {
+    "foodId": "f003",
+    "foodName": "Aloo Paratha",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 230.0,
+    "carbs": 37.0,
+    "protein": 5.0,
+    "fats": 7.0
+  },
+  {
+    "foodId": "f004",
+    "foodName": "Aloo Paratha (Mayuri)",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 230.0,
+    "carbs": 37.0,
+    "protein": 5.0,
+    "fats": 7.0
+  },
+  {
+    "foodId": "f005",
+    "foodName": "Aloo Sabzi",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 100.0,
+    "carbs": 18.25,
+    "protein": 2.43,
+    "fats": 3.01
+  },
+  {
+    "foodId": "f006",
+    "foodName": "Amul Butter",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 720.0,
+    "carbs": 0.0,
+    "protein": 0.0,
+    "fats": 80.0
+  },
+  {
+    "foodId": "f007",
+    "foodName": "Amul Chaach",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 23.0,
+    "carbs": 2.5,
+    "protein": 1.3,
+    "fats": 0.7
+  },
+  {
+    "foodId": "f008",
+    "foodName": "Amul Cheese Slice",
+    "baseNumber": 1.0,
+    "unitType": "slice",
+    "calories": 62.2,
+    "carbs": 0.3,
+    "protein": 4.0,
+    "fats": 5.0
+  },
+  {
+    "foodId": "f009",
+    "foodName": "Banana",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 89.0,
+    "carbs": 23.0,
+    "protein": 1.1,
+    "fats": 0.3
+  },
+  {
+    "foodId": "f010",
+    "foodName": "Berries (mixed)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 340.0,
+    "carbs": 79.33,
+    "protein": 2.67,
+    "fats": 1.33
+  },
+  {
+    "foodId": "f011",
+    "foodName": "Boiled Egg Whites",
+    "baseNumber": 1.0,
+    "unitType": "egg",
+    "calories": 17.0,
+    "carbs": 0.0,
+    "protein": 4.0,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f012",
+    "foodName": "Boiled Eggs",
+    "baseNumber": 1.0,
+    "unitType": "egg",
+    "calories": 77.0,
+    "carbs": 0.56,
+    "protein": 6.5,
+    "fats": 5.2
+  },
+  {
+    "foodId": "f013",
+    "foodName": "Boiled Kala Chana",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 141.2,
+    "carbs": 24.0,
+    "protein": 9.2,
+    "fats": 1.0
+  },
+  {
+    "foodId": "f014",
+    "foodName": "Boiled Rajma",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 127.0,
+    "carbs": 23.0,
+    "protein": 9.0,
+    "fats": 0.5
+  },
+  {
+    "foodId": "f015",
+    "foodName": "Bourbon Biscuit",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 493.0,
+    "carbs": 72.7,
+    "protein": 5.0,
+    "fats": 20.3
+  },
+  {
+    "foodId": "f016",
+    "foodName": "Bread (white)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 246.0,
+    "carbs": 50.6,
+    "protein": 7.5,
+    "fats": 1.2
+  },
+  {
+    "foodId": "f017",
+    "foodName": "Burger Bun",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 169.0,
+    "carbs": 30.4,
+    "protein": 6.0,
+    "fats": 2.4
+  },
+  {
+    "foodId": "f018",
+    "foodName": "Cherries",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 63.0,
+    "carbs": 16.01,
+    "protein": 1.06,
+    "fats": 0.2
+  },
+  {
+    "foodId": "f019",
+    "foodName": "Chia Protein Shake",
+    "baseNumber": 1.0,
+    "unitType": "serve",
+    "calories": 336.93,
+    "carbs": 16.16,
+    "protein": 30.42,
+    "fats": 16.95
+  },
+  {
+    "foodId": "f020",
+    "foodName": "Chia Seeds",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 483.3,
+    "carbs": 42.5,
+    "protein": 16.7,
+    "fats": 30.8
+  },
+  {
+    "foodId": "f021",
+    "foodName": "Chicken (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 80.0,
+    "carbs": 0.0,
+    "protein": 12.0,
+    "fats": 1.8
+  },
+  {
+    "foodId": "f022",
+    "foodName": "Chicken Breast",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 120.0,
+    "carbs": 0.0,
+    "protein": 23.0,
+    "fats": 2.6
+  },
+  {
+    "foodId": "f023",
+    "foodName": "Chicken Patty",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 108.0,
+    "carbs": 3.1,
+    "protein": 7.2,
+    "fats": 7.3
+  },
+  {
+    "foodId": "f024",
+    "foodName": "Choco Almond Protein Bar",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 179.0,
+    "carbs": 27.5,
+    "protein": 10.0,
+    "fats": 6.8
+  },
+  {
+    "foodId": "f025",
+    "foodName": "Chocolate Chips",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 479.0,
+    "carbs": 63.0,
+    "protein": 4.2,
+    "fats": 30.0
+  },
+  {
+    "foodId": "f026",
+    "foodName": "Coco Powder",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 409.0,
+    "carbs": 57.9,
+    "protein": 19.6,
+    "fats": 11.0
+  },
+  {
+    "foodId": "f027",
+    "foodName": "Cucumber (Kheera)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 15.0,
+    "carbs": 3.6,
+    "protein": 0.7,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f028",
+    "foodName": "Dahi (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 62.0,
+    "carbs": 4.4,
+    "protein": 4.0,
+    "fats": 3.1
+  },
+  {
+    "foodId": "f029",
+    "foodName": "Dahi Shridhi",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 62.0,
+    "carbs": 5.0,
+    "protein": 3.7,
+    "fats": 3.0
+  },
+  {
+    "foodId": "f030",
+    "foodName": "Dairy Milk Chocolate",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 516.0,
+    "carbs": 63.6,
+    "protein": 7.7,
+    "fats": 26.0
+  },
+  {
+    "foodId": "f031",
+    "foodName": "Dosa",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 130.0,
+    "carbs": 18.9,
+    "protein": 2.65,
+    "fats": 4.95
+  },
+  {
+    "foodId": "f032",
+    "foodName": "Double Toned Milk",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 47.0,
+    "carbs": 5.0,
+    "protein": 3.3,
+    "fats": 1.5
+  },
+  {
+    "foodId": "f033",
+    "foodName": "Dr Oetker Brownie",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 446.7,
+    "carbs": 61.6,
+    "protein": 4.7,
+    "fats": 20.2
+  },
+  {
+    "foodId": "f034",
+    "foodName": "Egg Whites (raw)",
+    "baseNumber": 4.0,
+    "unitType": "eggs",
+    "calories": 69.0,
+    "carbs": 0.96,
+    "protein": 14.39,
+    "fats": 0.22
+  },
+  {
+    "foodId": "f035",
+    "foodName": "Epigamia Blueberry Yogurt",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 90.0,
+    "carbs": 12.22,
+    "protein": 6.0,
+    "fats": 1.78
+  },
+  {
+    "foodId": "f036",
+    "foodName": "Epigamia Greek Yogurt",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 64.7,
+    "carbs": 4.71,
+    "protein": 7.18,
+    "fats": 2.24
+  },
+  {
+    "foodId": "f037",
+    "foodName": "Fortune Soya Chunks",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 345.0,
+    "carbs": 33.0,
+    "protein": 52.0,
+    "fats": 0.5
+  },
+  {
+    "foodId": "f038",
+    "foodName": "Fried Eggs",
+    "baseNumber": 4.0,
+    "unitType": "pcs",
+    "calories": 360.0,
+    "carbs": 1.5,
+    "protein": 25.0,
+    "fats": 27.2
+  },
+  {
+    "foodId": "f039",
+    "foodName": "Frozen Blueberry",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 57.0,
+    "carbs": 14.0,
+    "protein": 0.7,
+    "fats": 0.3
+  },
+  {
+    "foodId": "f040",
+    "foodName": "Gajak",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 540.0,
+    "carbs": 46.0,
+    "protein": 20.0,
+    "fats": 31.0
+  },
+  {
+    "foodId": "f041",
+    "foodName": "Ghee",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 897.0,
+    "carbs": 0.0,
+    "protein": 0.0,
+    "fats": 99.7
+  },
+  {
+    "foodId": "f042",
+    "foodName": "Gold Milk",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 88.7,
+    "carbs": 5.1,
+    "protein": 3.5,
+    "fats": 6.0
+  },
+  {
+    "foodId": "f043",
+    "foodName": "Greek Yogurt (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 65.0,
+    "carbs": 5.0,
+    "protein": 7.0,
+    "fats": 2.0
+  },
+  {
+    "foodId": "f044",
+    "foodName": "Grilled Chicken Salad",
+    "baseNumber": 1.0,
+    "unitType": "serve",
+    "calories": 386.0,
+    "carbs": 0.0,
+    "protein": 65.0,
+    "fats": 14.0
+  },
+  {
+    "foodId": "f045",
+    "foodName": "Guava",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 68.0,
+    "carbs": 14.0,
+    "protein": 2.6,
+    "fats": 1.0
+  },
+  {
+    "foodId": "f046",
+    "foodName": "Hide and Seek Biscuit",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 479.0,
+    "carbs": 73.3,
+    "protein": 5.9,
+    "fats": 18.0
+  },
+  {
+    "foodId": "f047",
+    "foodName": "Honey",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 320.0,
+    "carbs": 80.0,
+    "protein": 0.0,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f048",
+    "foodName": "Hot N Sweet Sauce",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 135.0,
+    "carbs": 33.8,
+    "protein": 0.4,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f049",
+    "foodName": "Jalebi",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 300.0,
+    "carbs": 62.36,
+    "protein": 4.19,
+    "fats": 4.31
+  },
+  {
+    "foodId": "f050",
+    "foodName": "Juice (generic)",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 53.0,
+    "carbs": 13.1,
+    "protein": 0.0,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f051",
+    "foodName": "Kharbooja (Muskmelon)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 34.0,
+    "carbs": 8.2,
+    "protein": 0.8,
+    "fats": 0.2
+  },
+  {
+    "foodId": "f052",
+    "foodName": "Limca",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 44.0,
+    "carbs": 11.0,
+    "protein": 0.0,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f053",
+    "foodName": "Low Fat Paneer",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 173.0,
+    "carbs": 4.0,
+    "protein": 24.5,
+    "fats": 6.5
+  },
+  {
+    "foodId": "f054",
+    "foodName": "Maggie",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 384.0,
+    "carbs": 59.6,
+    "protein": 8.2,
+    "fats": 12.5
+  },
+  {
+    "foodId": "f055",
+    "foodName": "Maida",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 364.0,
+    "carbs": 76.31,
+    "protein": 10.33,
+    "fats": 0.98
+  },
+  {
+    "foodId": "f056",
+    "foodName": "Mango",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 60.0,
+    "carbs": 15.0,
+    "protein": 0.8,
+    "fats": 0.4
+  },
+  {
+    "foodId": "f057",
+    "foodName": "Mars Chocolate",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 221.0,
+    "carbs": 36.0,
+    "protein": 2.25,
+    "fats": 8.0
+  },
+  {
+    "foodId": "f058",
+    "foodName": "Max Protein Choco Almond",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 179.0,
+    "carbs": 27.5,
+    "protein": 10.0,
+    "fats": 6.8
+  },
+  {
+    "foodId": "f059",
+    "foodName": "McPuff",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 227.0,
+    "carbs": 24.4,
+    "protein": 4.73,
+    "fats": 12.22
+  },
+  {
+    "foodId": "f060",
+    "foodName": "McSpicy Chicken Burger",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 451.0,
+    "carbs": 46.08,
+    "protein": 21.46,
+    "fats": 19.36
+  },
+  {
+    "foodId": "f061",
+    "foodName": "Milk (full fat)",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 87.0,
+    "carbs": 5.0,
+    "protein": 3.2,
+    "fats": 6.0
+  },
+  {
+    "foodId": "f062",
+    "foodName": "Milk Shridhi",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 60.0,
+    "carbs": 4.9,
+    "protein": 3.2,
+    "fats": 3.1
+  },
+  {
+    "foodId": "f063",
+    "foodName": "Milky Mist Protein Yogurt",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 77.8,
+    "carbs": 6.5,
+    "protein": 8.0,
+    "fats": 2.2
+  },
+  {
+    "foodId": "f064",
+    "foodName": "Moong Daal Chila",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 419.0,
+    "carbs": 64.0,
+    "protein": 26.0,
+    "fats": 7.0
+  },
+  {
+    "foodId": "f065",
+    "foodName": "Mother Dairy Blueberry Yogurt",
+    "baseNumber": 1.0,
+    "unitType": "cup",
+    "calories": 136.0,
+    "carbs": 19.5,
+    "protein": 4.1,
+    "fats": 4.6
+  },
+  {
+    "foodId": "f066",
+    "foodName": "Muesli (generic)",
+    "baseNumber": 50.0,
+    "unitType": "g",
+    "calories": 211.0,
+    "carbs": 28.6,
+    "protein": 12.0,
+    "fats": 6.5
+  },
+  {
+    "foodId": "f067",
+    "foodName": "Muesli Bowl",
+    "baseNumber": 1.0,
+    "unitType": "bowl",
+    "calories": 464.0,
+    "carbs": 54.8,
+    "protein": 14.4,
+    "fats": 20.8
+  },
+  {
+    "foodId": "f068",
+    "foodName": "MuscleTech Whey",
+    "baseNumber": 1.0,
+    "unitType": "scoop",
+    "calories": 125.0,
+    "carbs": 3.8,
+    "protein": 24.0,
+    "fats": 1.7
+  },
+  {
+    "foodId": "f069",
+    "foodName": "Muskmelon",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 34.0,
+    "carbs": 8.16,
+    "protein": 0.84,
+    "fats": 0.19
+  },
+  {
+    "foodId": "f070",
+    "foodName": "MyProtein Whey Hazelnut",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 381.0,
+    "carbs": 7.79,
+    "protein": 73.7,
+    "fats": 6.11
+  },
+  {
+    "foodId": "f071",
+    "foodName": "MyProtein Whey Pista",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 383.0,
+    "carbs": 11.62,
+    "protein": 70.23,
+    "fats": 5.86
+  },
+  {
+    "foodId": "f072",
+    "foodName": "Nestle Dahi",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 58.0,
+    "carbs": 4.5,
+    "protein": 3.4,
+    "fats": 3.0
+  },
+  {
+    "foodId": "f073",
+    "foodName": "Nestle Skim Milk",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 34.0,
+    "carbs": 5.0,
+    "protein": 3.0,
+    "fats": 0.2
+  },
+  {
+    "foodId": "f074",
+    "foodName": "Nuts Mix 15g",
+    "baseNumber": 15.0,
+    "unitType": "g",
+    "calories": 90.0,
+    "carbs": 3.3,
+    "protein": 2.7,
+    "fats": 8.0
+  },
+  {
+    "foodId": "f075",
+    "foodName": "Oat Smoothie Pack",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 100.0,
+    "carbs": 18.2,
+    "protein": 2.9,
+    "fats": 8.5
+  },
+  {
+    "foodId": "f076",
+    "foodName": "Oats (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 376.0,
+    "carbs": 60.0,
+    "protein": 22.0,
+    "fats": 8.2
+  },
+  {
+    "foodId": "f077",
+    "foodName": "Oats MB",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 402.6,
+    "carbs": 60.0,
+    "protein": 22.0,
+    "fats": 8.29
+  },
+  {
+    "foodId": "f078",
+    "foodName": "Omelette",
+    "baseNumber": 4.0,
+    "unitType": "eggs",
+    "calories": 392.0,
+    "carbs": 4.61,
+    "protein": 27.23,
+    "fats": 28.57
+  },
+  {
+    "foodId": "f079",
+    "foodName": "Paneer",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 296.0,
+    "carbs": 4.5,
+    "protein": 20.0,
+    "fats": 22.0
+  },
+  {
+    "foodId": "f080",
+    "foodName": "Paneer Roll",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 470.0,
+    "carbs": 46.0,
+    "protein": 11.0,
+    "fats": 25.0
+  },
+  {
+    "foodId": "f081",
+    "foodName": "Paneer Tikka",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 296.0,
+    "carbs": 4.5,
+    "protein": 20.0,
+    "fats": 22.0
+  },
+  {
+    "foodId": "f082",
+    "foodName": "Pav",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 283.0,
+    "carbs": 53.9,
+    "protein": 10.8,
+    "fats": 2.3
+  },
+  {
+    "foodId": "f083",
+    "foodName": "Peanut Butter (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 603.1,
+    "carbs": 31.25,
+    "protein": 28.13,
+    "fats": 42.19
+  },
+  {
+    "foodId": "f084",
+    "foodName": "Peanut Butter MyFitness",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 640.0,
+    "carbs": 22.0,
+    "protein": 22.0,
+    "fats": 52.0
+  },
+  {
+    "foodId": "f085",
+    "foodName": "Pintola Muesli",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 390.0,
+    "carbs": 56.0,
+    "protein": 24.0,
+    "fats": 8.0
+  },
+  {
+    "foodId": "f086",
+    "foodName": "Pintola Oats",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 392.0,
+    "carbs": 54.6,
+    "protein": 25.0,
+    "fats": 8.0
+  },
+  {
+    "foodId": "f087",
+    "foodName": "Pintola Oats (50g)",
+    "baseNumber": 50.0,
+    "unitType": "g",
+    "calories": 186.0,
+    "carbs": 29.3,
+    "protein": 11.0,
+    "fats": 4.1
+  },
+  {
+    "foodId": "f088",
+    "foodName": "Pintola Peanut Butter",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 638.0,
+    "carbs": 18.0,
+    "protein": 30.0,
+    "fats": 49.0
+  },
+  {
+    "foodId": "f089",
+    "foodName": "Poha",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 130.0,
+    "carbs": 18.8,
+    "protein": 2.4,
+    "fats": 3.0
+  },
+  {
+    "foodId": "f090",
+    "foodName": "Poori / Puri",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 124.0,
+    "carbs": 14.41,
+    "protein": 2.51,
+    "fats": 6.6
+  },
+  {
+    "foodId": "f091",
+    "foodName": "Protein Bar (generic)",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 132.0,
+    "carbs": 11.2,
+    "protein": 10.5,
+    "fats": 5.6
+  },
+  {
+    "foodId": "f092",
+    "foodName": "Protein Bread",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 243.6,
+    "carbs": 41.4,
+    "protein": 14.2,
+    "fats": 2.4
+  },
+  {
+    "foodId": "f093",
+    "foodName": "Raisins",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 300.0,
+    "carbs": 80.0,
+    "protein": 3.0,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f094",
+    "foodName": "Rajma Sabzi",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 100.8,
+    "carbs": 15.2,
+    "protein": 5.2,
+    "fats": 2.6
+  },
+  {
+    "foodId": "f095",
+    "foodName": "Rice (cooked)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 135.0,
+    "carbs": 27.5,
+    "protein": 2.5,
+    "fats": 1.0
+  },
+  {
+    "foodId": "f096",
+    "foodName": "Rice (uncooked)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 360.0,
+    "carbs": 79.0,
+    "protein": 7.0,
+    "fats": 0.6
+  },
+  {
+    "foodId": "f097",
+    "foodName": "Roti",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 264.0,
+    "carbs": 55.81,
+    "protein": 9.61,
+    "fats": 1.3
+  },
+  {
+    "foodId": "f098",
+    "foodName": "Samosa",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 261.0,
+    "carbs": 24.0,
+    "protein": 3.5,
+    "fats": 17.0
+  },
+  {
+    "foodId": "f099",
+    "foodName": "Schezwan Sauce",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 176.0,
+    "carbs": 16.67,
+    "protein": 2.2,
+    "fats": 11.2
+  },
+  {
+    "foodId": "f100",
+    "foodName": "Soya Chaap",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 267.0,
+    "carbs": 36.2,
+    "protein": 14.0,
+    "fats": 6.5
+  },
+  {
+    "foodId": "f101",
+    "foodName": "Soya Chunks (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 355.0,
+    "carbs": 33.5,
+    "protein": 43.3,
+    "fats": 0.35
+  },
+  {
+    "foodId": "f102",
+    "foodName": "Strawberry",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 32.0,
+    "carbs": 7.7,
+    "protein": 0.7,
+    "fats": 0.3
+  },
+  {
+    "foodId": "f103",
+    "foodName": "Sweet Corn",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 86.0,
+    "carbs": 19.02,
+    "protein": 3.22,
+    "fats": 1.18
+  },
+  {
+    "foodId": "f104",
+    "foodName": "Tempayy",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 180.9,
+    "carbs": 13.2,
+    "protein": 18.9,
+    "fats": 5.8
+  },
+  {
+    "foodId": "f105",
+    "foodName": "Toned Milk",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 60.0,
+    "carbs": 4.8,
+    "protein": 3.3,
+    "fats": 3.1
+  },
+  {
+    "foodId": "f106",
+    "foodName": "Turbo Yogurt (flavored)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 69.3,
+    "carbs": 6.43,
+    "protein": 10.71,
+    "fats": 0.07
+  },
+  {
+    "foodId": "f107",
+    "foodName": "Turbo Yogurt (plain)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 65.0,
+    "carbs": 4.0,
+    "protein": 12.0,
+    "fats": 0.1
+  },
+  {
+    "foodId": "f108",
+    "foodName": "Uttapam",
+    "baseNumber": 1.0,
+    "unitType": "serve",
+    "calories": 180.0,
+    "carbs": 31.0,
+    "protein": 4.0,
+    "fats": 4.5
+  },
+  {
+    "foodId": "f109",
+    "foodName": "Vada Pav",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 304.0,
+    "carbs": 40.1,
+    "protein": 9.1,
+    "fats": 11.9
+  },
+  {
+    "foodId": "f110",
+    "foodName": "Veg Snacker",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 314.0,
+    "carbs": 43.07,
+    "protein": 7.81,
+    "fats": 12.32
+  },
+  {
+    "foodId": "f111",
+    "foodName": "Veggies (mixed)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 54.7,
+    "carbs": 12.0,
+    "protein": 1.0,
+    "fats": 0.3
+  },
+  {
+    "foodId": "f112",
+    "foodName": "Vermicelli",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 157.1,
+    "carbs": 30.68,
+    "protein": 5.76,
+    "fats": 0.92
+  },
+  {
+    "foodId": "f113",
+    "foodName": "Walnuts",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 650.0,
+    "carbs": 13.7,
+    "protein": 15.2,
+    "fats": 65.2
+  },
+  {
+    "foodId": "f114",
+    "foodName": "Watermelon",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 30.0,
+    "carbs": 7.6,
+    "protein": 0.6,
+    "fats": 0.2
+  },
+  {
+    "foodId": "f115",
+    "foodName": "Whey (generic)",
+    "baseNumber": 1.0,
+    "unitType": "scoop",
+    "calories": 132.0,
+    "carbs": 2.9,
+    "protein": 28.0,
+    "fats": 1.7
+  },
+  {
+    "foodId": "f116",
+    "foodName": "Whey (MyProtein)",
+    "baseNumber": 1.0,
+    "unitType": "scoop",
+    "calories": 111.9,
+    "carbs": 2.42,
+    "protein": 20.64,
+    "fats": 1.95
+  },
+  {
+    "foodId": "f117",
+    "foodName": "Whey MyProtein Mint Choc",
+    "baseNumber": 1.0,
+    "unitType": "scoop",
+    "calories": 114.6,
+    "carbs": 1.91,
+    "protein": 22.35,
+    "fats": 1.87
+  },
+  {
+    "foodId": "f118",
+    "foodName": "Whey YWF",
+    "baseNumber": 1.0,
+    "unitType": "scoop",
+    "calories": 132.0,
+    "carbs": 5.0,
+    "protein": 24.0,
+    "fats": 1.8
+  },
+  {
+    "foodId": "f119",
+    "foodName": "Whole Wheat Bread",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 247.5,
+    "carbs": 46.3,
+    "protein": 10.2,
+    "fats": 2.49
+  },
+  {
+    "foodId": "f120",
+    "foodName": "Winkie Caramel Cake",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 147.0,
+    "carbs": 22.0,
+    "protein": 2.0,
+    "fats": 4.9
+  },
+  {
+    "foodId": "f121",
+    "foodName": "Winkies Tuti Frooti Cake",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 423.2,
+    "carbs": 53.09,
+    "protein": 7.58,
+    "fats": 20.06
+  },
+  {
+    "foodId": "f122",
+    "foodName": "Yogabar Bar",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 194.0,
+    "carbs": 27.3,
+    "protein": 10.0,
+    "fats": 4.9
+  },
+  {
+    "foodId": "f123",
+    "foodName": "Yogabar Choc Cranberry",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 199.0,
+    "carbs": 26.9,
+    "protein": 10.9,
+    "fats": 5.3
+  },
+  {
+    "foodId": "f124",
+    "foodName": "Yogabar Dark Choc PB",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 620.0,
+    "carbs": 30.5,
+    "protein": 21.5,
+    "fats": 47.0
+  },
+  {
+    "foodId": "f125",
+    "foodName": "Yogabar Muesli",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 410.0,
+    "carbs": 63.4,
+    "protein": 12.0,
+    "fats": 11.2
+  },
+  {
+    "foodId": "f126",
+    "foodName": "Yogabar Muesli (Oats)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 410.0,
+    "carbs": 63.4,
+    "protein": 12.0,
+    "fats": 12.2
+  },
+  {
+    "foodId": "f127",
+    "foodName": "Pasta/Macroni (generic)",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 371.0,
+    "carbs": 74.67,
+    "protein": 13.04,
+    "fats": 1.51
+  },
+  {
+    "foodId": "f128",
+    "foodName": "BBQ Chicken Burrito Wrap by Protein Chef",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 537.0,
+    "carbs": 48.0,
+    "protein": 32.0,
+    "fats": 25.0
+  },
+  {
+    "foodId": "f129",
+    "foodName": "Lotte Choco Pie",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 438.0,
+    "carbs": 67.0,
+    "protein": 4.0,
+    "fats": 17.0
+  },
+  {
+    "foodId": "f130",
+    "foodName": "Banana Bread",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 392.24,
+    "carbs": 45.49,
+    "protein": 4.69,
+    "fats": 21.28
+  },
+  {
+    "foodId": "f131",
+    "foodName": "Fruit cake yellow",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 421.0,
+    "carbs": 57.4,
+    "protein": 6.0,
+    "fats": 18.6
+  },
+  {
+    "foodId": "f132",
+    "foodName": "tedhe medhe",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 541.0,
+    "carbs": 55.7,
+    "protein": 7.6,
+    "fats": 32.7
+  },
+  {
+    "foodId": "f133",
+    "foodName": "OWN Whey",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 388.5,
+    "carbs": 12.17,
+    "protein": 72.73,
+    "fats": 5.1
+  },
+  {
+    "foodId": "f134",
+    "foodName": "Amul Dark Chocolate",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 521.0,
+    "carbs": 51.4,
+    "protein": 6.4,
+    "fats": 33.1
+  },
+  {
+    "foodId": "f135",
+    "foodName": "Cabbage",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 24.0,
+    "carbs": 5.58,
+    "protein": 1.44,
+    "fats": 0.12
+  },
+  {
+    "foodId": "f136",
+    "foodName": "Swish Chilli Cheese Sandwhich",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 335.8,
+    "carbs": 30.3,
+    "protein": 7.6,
+    "fats": 20.5
+  },
+  {
+    "foodId": "f137",
+    "foodName": "Swish Masala Omeltte",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 114.8,
+    "carbs": 3.0,
+    "protein": 9.7,
+    "fats": 7.0
+  },
+  {
+    "foodId": "f138",
+    "foodName": "Modern Fruit n nut cake",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 373.02,
+    "carbs": 48.54,
+    "protein": 6.18,
+    "fats": 17.13
+  },
+  {
+    "foodId": "f139",
+    "foodName": "Dairy Milk Fruit n nut",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 520.0,
+    "carbs": 58.8,
+    "protein": 8.5,
+    "fats": 28.4
+  },
+  {
+    "foodId": "f140",
+    "foodName": "Onion",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 42.0,
+    "carbs": 10.11,
+    "protein": 0.92,
+    "fats": 0.08
+  },
+  {
+    "foodId": "f141",
+    "foodName": "Max Protein  Chinese Manchurian",
+    "baseNumber": 1.0,
+    "unitType": "pack (60gm)",
+    "calories": 286.0,
+    "carbs": 29.9,
+    "protein": 10.0,
+    "fats": 13.6
+  },
+  {
+    "foodId": "f142",
+    "foodName": "Hummus Chicken Chiptole - Harvest Salad",
+    "baseNumber": 1.0,
+    "unitType": "pc",
+    "calories": 483.0,
+    "carbs": 49.0,
+    "protein": 29.0,
+    "fats": 19.0
+  },
+  {
+    "foodId": "f143",
+    "foodName": "HoeGarden Witbier",
+    "baseNumber": 1.0,
+    "unitType": "can",
+    "calories": 225.0,
+    "carbs": 20.0,
+    "protein": 2.5,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f144",
+    "foodName": "MB Naruto Protein",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 400.22,
+    "carbs": 18.08,
+    "protein": 70.0,
+    "fats": 6.24
+  },
+  {
+    "foodId": "f145",
+    "foodName": "NueVue Kesar Pista protein shake",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 170.08,
+    "carbs": 12.6,
+    "protein": 20.0,
+    "fats": 4.4
+  },
+  {
+    "foodId": "f146",
+    "foodName": "Swish Choc banana smoothi",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 559.0,
+    "carbs": 88.14,
+    "protein": 11.96,
+    "fats": 15.86
+  },
+  {
+    "foodId": "f147",
+    "foodName": "Swish Pesto Pasta",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 709.7,
+    "carbs": 76.3,
+    "protein": 41.61,
+    "fats": 28.1
+  },
+  {
+    "foodId": "f148",
+    "foodName": "Extra Virgin Olive Oil",
+    "baseNumber": 100.0,
+    "unitType": "ml",
+    "calories": 900.0,
+    "carbs": 0.0,
+    "protein": 0.0,
+    "fats": 100.0
+  },
+  {
+    "foodId": "f149",
+    "foodName": "Basil Leaves",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 23.0,
+    "carbs": 2.7,
+    "protein": 3.2,
+    "fats": 0.6
+  },
+  {
+    "foodId": "f150",
+    "foodName": "Garlic",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 149.0,
+    "carbs": 33.0,
+    "protein": 6.4,
+    "fats": 0.5
+  },
+  {
+    "foodId": "f151",
+    "foodName": "Amul Processed Cheese",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 314.0,
+    "carbs": 3.0,
+    "protein": 20.0,
+    "fats": 25.0
+  },
+  {
+    "foodId": "f152",
+    "foodName": "Garlic",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 149.0,
+    "carbs": 33.0,
+    "protein": 6.4,
+    "fats": 0.5
+  },
+  {
+    "foodId": "f153",
+    "foodName": "Cashews",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 553.0,
+    "carbs": 30.0,
+    "protein": 18.0,
+    "fats": 44.0
+  },
+  {
+    "foodId": "f154",
+    "foodName": "Swish Berry Yogurt Bowl",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 279.24,
+    "carbs": 47.06,
+    "protein": 8.32,
+    "fats": 6.76
+  },
+  {
+    "foodId": "f155",
+    "foodName": "Swish Chicken Tikka Roll",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 524.11,
+    "carbs": 38.64,
+    "protein": 24.34,
+    "fats": 30.04
+  },
+  {
+    "foodId": "f156",
+    "foodName": "Protein Chef Egg Bhurji Meal",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 506.0,
+    "carbs": 45.0,
+    "protein": 30.0,
+    "fats": 23.0
+  },
+  {
+    "foodId": "f157",
+    "foodName": "kesar pista protein milkshake",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 170.06,
+    "carbs": 12.6,
+    "protein": 20.0,
+    "fats": 4.4
+  },
+  {
+    "foodId": "f158",
+    "foodName": "Chicken Club Sandwhich",
+    "baseNumber": 1.0,
+    "unitType": "pack",
+    "calories": 406.0,
+    "carbs": 34.0,
+    "protein": 29.0,
+    "fats": 17.0
+  },
+  {
+    "foodId": "f159",
+    "foodName": "Avocado",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 160.0,
+    "carbs": 8.53,
+    "protein": 2.0,
+    "fats": 14.66
+  },
+  {
+    "foodId": "f160",
+    "foodName": "Sourdough Bread",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 282.67,
+    "carbs": 60.18,
+    "protein": 10.33,
+    "fats": 0.61
+  },
+  {
+    "foodId": "f161",
+    "foodName": "Sugar",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 387.0,
+    "carbs": 99.98,
+    "protein": 0.0,
+    "fats": 0.0
+  },
+  {
+    "foodId": "f162",
+    "foodName": "Vanilla Extract",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 288.0,
+    "carbs": 12.65,
+    "protein": 0.06,
+    "fats": 0.6
+  },
+  {
+    "foodId": "f163",
+    "foodName": "Maxprotein manchurian chips",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 439.5,
+    "carbs": 48.8,
+    "protein": 16.6,
+    "fats": 22.8
+  },
+  {
+    "foodId": "f164",
+    "foodName": "Milky Mist Blueberry Yogurt",
+    "baseNumber": 100.0,
+    "unitType": "g",
+    "calories": 103.5,
+    "carbs": 15.3,
+    "protein": 3.6,
+    "fats": 3.1
+  }
+]
