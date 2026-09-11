@@ -13,11 +13,10 @@ fun FoodDatabaseRoute(
     onNavigateToAddFood: () -> Unit,
     viewModel: FoodDatabaseViewModel = hiltViewModel()
 ) {
-    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val foodsState by viewModel.foodsState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val foodUiState = remember(foodsState) {
-        when (val state = foodsState) {
+    val foodUiState = remember(uiState.foodsState) {
+        when (val state = uiState.foodsState) {
             is UiState.Loading -> UiState.Loading
             is UiState.Error -> UiState.Error(state.message)
             is UiState.Success -> UiState.Success(
@@ -36,8 +35,8 @@ fun FoodDatabaseRoute(
     }
 
     FoodDatabaseScreen(
-        searchQuery = searchQuery,
-        onSearchQueryChanged = viewModel::onSearchQueryChanged,
+        searchQuery = uiState.searchQuery,
+        onSearchQueryChanged = { viewModel.onEvent(FoodDatabaseEvent.SearchQueryChanged(it)) },
         foodsState = foodUiState,
         onAddFoodClicked = onNavigateToAddFood
     )

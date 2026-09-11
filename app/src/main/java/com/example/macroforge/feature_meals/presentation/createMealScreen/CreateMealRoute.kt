@@ -7,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.macroforge.core.domain.UiState
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
 
@@ -17,26 +16,19 @@ fun CreateMealRoute(
     onNavigateToSaveMeal: () -> Unit,
     viewModel: CreateMealViewModel = hiltViewModel()
 ) {
-    val searchQuery by viewModel.searchQuery.collectAsState()
-    val searchResults by viewModel.searchResults.collectAsState()
-    val selectedFoods by viewModel.selectedFoods.collectAsState()
-    val macros by viewModel.macroTotals.collectAsState()
-    val mealName by viewModel.mealName.collectAsState()
-    val selectedTag by viewModel.selectedTag.collectAsState()
-    val canSave by viewModel.canSave.collectAsState()
-    val saveState by viewModel.saveState.collectAsState()
-    val isSaving = saveState is UiState.Loading
-    val saveErrorMessage = (saveState as? UiState.Error)?.message
+    val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.saveSuccess.collect {
-            onNavigateToSaveMeal()
+        viewModel.effects.collect { effect ->
+            when (effect) {
+                CreateMealEffect.MealSaved -> onNavigateToSaveMeal()
+            }
         }
     }
 
     // Map domain Food -> UI search result model
-    val searchResultUiItems = remember(searchResults) {
-        searchResults.map { food ->
+    val searchResultUiItems = remember(uiState.searchResults) {
+        uiState.searchResults.map { food ->
             FoodSearchResultUiItem(
                 id = food.foodId,
                 name = food.foodName,
@@ -48,8 +40,8 @@ fun CreateMealRoute(
     }
 
     // Map domain (Food + quantity) -> UI list item, scaling macros by quantity
-    val foodUiItems = remember(selectedFoods) {
-        selectedFoods.map { (food, qty) ->
+    val foodUiItems = remember(uiState.selectedFoods) {
+        uiState.selectedFoods.map { (food, qty) ->
             val ratio = qty / food.baseNumber
             FoodUiItem(
                 id = food.foodId,
@@ -66,47 +58,46 @@ fun CreateMealRoute(
     }
 
     // Lookup to map a UI item back to its real Food for ViewModel calls
-    val foodById = remember(selectedFoods) {
-        selectedFoods.keys.associateBy { it.foodId }
+    val foodById = remember(uiState.selectedFoods) {
+        uiState.selectedFoods.keys.associateBy { it.foodId }
     }
-    val searchResultById = remember(searchResults) {
-        searchResults.associateBy { it.foodId }
+    val searchResultById = remember(uiState.searchResults) {
+        uiState.searchResults.associateBy { it.foodId }
     }
 
     CreateMealScreen(
-        searchQuery = searchQuery,
+        searchQuery = uiState.searchQuery,
         searchResults = searchResultUiItems,
         foods = foodUiItems,
-        totalCalories = macros.calories,
-        totalProtein = macros.protein,
-        totalCarbs = macros.carbs,
-        totalFats = macros.fats,
-        mealName = mealName,
-        onMealNameChanged = viewModel::onMealNameChanged,
-        selectedTag = selectedTag,
-        onTagSelected = viewModel::onTagSelected,
-        canSave = canSave,
-        isSaving = isSaving,
-        saveErrorMessage = saveErrorMessage,
+        totalCalories = uiState.macroTotals.calories,
+        totalProtein = uiState.macroTotals.protein,
+        totalCarbs = uiState.macroTotals.carbs,
+        totalFats = uiState.macroTotals.fats,
+        mealName = uiState.mealName,
+        onMealNameChanged = { name -> viewModel.onEvent(CreateMealEvent.MealNameChanged(name)) },
+        selectedTag = uiState.selectedTag,
+        onTagSelected = { tag -> viewModel.onEvent(CreateMealEvent.TagSelected(tag)) },
+        canSave = uiState.canSave,
+        isSaving = uiState.isSaving,
+        saveErrorMessage = uiState.saveErrorMessage,
         onBack = onNavigateBack,
-        onSave = viewModel::saveMeal,       // top-right "Save" -> go to Save Meal screen
-        onSaveMeal = viewModel::saveMeal,   // bottom "Save Meal" button -> same destination
-        onSearchQueryChanged = viewModel::onSearchQueryChanged,
-        onClearSearch = viewModel::clearSearchQuery,
+        onSave = { viewModel.onEvent(CreateMealEvent.Save) },       // top-right "Save" -> go to Save Meal screen
+        onSaveMeal = { viewModel.onEvent(CreateMealEvent.Save) },   // bottom "Save Meal" button -> same destination
+        onSearchQueryChanged = { query -> viewModel.onEvent(CreateMealEvent.SearchQueryChanged(query)) },
+        onClearSearch = { viewModel.onEvent(CreateMealEvent.ClearSearch) },
         onAddFood = { uiResult ->
-            searchResultById[uiResult.id]?.let { foodEntity ->
-                viewModel.addFood(foodEntity, foodEntity.baseNumber)
-                viewModel.clearSearchQuery()
+            searchResultById[uiResult.id]?.let { food ->
+                viewModel.onEvent(CreateMealEvent.AddFood(food, food.baseNumber))
             }
         },
         onQuantityChanged = { uiItem, newQty ->
-            foodById[uiItem.id]?.let { foodEntity ->
-                viewModel.updateQuantity(foodEntity, newQty)
+            foodById[uiItem.id]?.let { food ->
+                viewModel.onEvent(CreateMealEvent.QuantityChanged(food, newQty))
             }
         },
         onRemoveFood = { uiItem ->
-            foodById[uiItem.id]?.let { foodEntity ->
-                viewModel.removeFood(foodEntity)
+            foodById[uiItem.id]?.let { food ->
+                viewModel.onEvent(CreateMealEvent.RemoveFood(food))
             }
         }
     )

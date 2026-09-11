@@ -24,17 +24,13 @@ fun SavedMealsRoute(
     onNavigateToProfile: () -> Unit,
     viewModel: SavedMealsViewModel = hiltViewModel()
 ) {
-    val mealsState by viewModel.mealsState.collectAsStateWithLifecycle()
-    val selectedTag by viewModel.selectedTag.collectAsStateWithLifecycle()
-    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val isSearchActive by viewModel.isSearchActive.collectAsStateWithLifecycle()
-    val totalKcalToday by viewModel.totalKcalToday.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     var pendingDeleteMeal by remember { mutableStateOf<SavedMealUiItem?>(null) }
 
     // Map domain UiState<List<Meal>> -> UiState<List<SavedMealUiItem>>
-    val mealUiState = remember(mealsState) {
-        when (val state = mealsState) {
+    val mealUiState = remember(uiState.mealsState) {
+        when (val state = uiState.mealsState) {
             is UiState.Loading -> UiState.Loading
             is UiState.Error -> UiState.Error(state.message)
             is UiState.Success -> UiState.Success(
@@ -72,14 +68,14 @@ fun SavedMealsRoute(
 
     SavedMealsScreen(
         mealsState         = mealUiState,
-        selectedTag        = selectedTag,
-        searchQuery        = searchQuery,
-        isSearchActive     = isSearchActive,
-        totalKcalToday     = totalKcalToday,
-        onTagSelected      = viewModel::onTagSelected,
-        onSearchQueryChanged = viewModel::onSearchQueryChanged,
-        onSearchToggled    = viewModel::onSearchToggled,
-        onCancelSearch     = viewModel::onCancelSearch,
+        selectedTag        = uiState.selectedTag,
+        searchQuery        = uiState.searchQuery,
+        isSearchActive     = uiState.isSearchActive,
+        totalKcalToday     = uiState.totalKcalToday,
+        onTagSelected      = { tag -> viewModel.onEvent(SavedMealsEvent.TagSelected(tag)) },
+        onSearchQueryChanged = { query -> viewModel.onEvent(SavedMealsEvent.SearchQueryChanged(query)) },
+        onSearchToggled    = { viewModel.onEvent(SavedMealsEvent.SearchToggled) },
+        onCancelSearch     = { viewModel.onEvent(SavedMealsEvent.CancelSearch) },
         onMealClicked      = { uiItem -> onNavigateToMealDetail(uiItem.id) },
         onCreateMeal       = onNavigateToCreateMeal,
         onFilterClicked    = { /* TODO: show filter bottom sheet */ },
@@ -97,7 +93,7 @@ fun SavedMealsRoute(
             text = { Text("This can't be undone.") },
             confirmButton = {
                 TextButton(onClick = {
-                    viewModel.onDeleteMeal(meal.id)
+                    viewModel.onEvent(SavedMealsEvent.DeleteMeal(meal.id))
                     pendingDeleteMeal = null
                 }) { Text("Delete") }
             },
