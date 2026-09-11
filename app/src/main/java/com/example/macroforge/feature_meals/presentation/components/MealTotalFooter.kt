@@ -53,7 +53,8 @@ fun MealTotalFooter(
     totalProtein: Float,
     totalCarbs: Float,
     totalFats: Float,
-    onSaveMeal: () -> Unit
+    onSaveMeal: () -> Unit,
+    saveEnabled: Boolean = true
 ) {
     Surface(
         color = Surface,
@@ -113,6 +114,7 @@ fun MealTotalFooter(
 
             Button(
                 onClick = onSaveMeal,
+                enabled = saveEnabled,
                 shape = RoundedCornerShape(18.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Orange),
                 modifier = Modifier.fillMaxWidth().height(56.dp)

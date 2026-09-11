@@ -7,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
 
@@ -21,6 +20,9 @@ fun CreateMealRoute(
     val searchResults by viewModel.searchResults.collectAsState()
     val selectedFoods by viewModel.selectedFoods.collectAsState()
     val macros by viewModel.macroTotals.collectAsState()
+    val mealName by viewModel.mealName.collectAsState()
+    val selectedTag by viewModel.selectedTag.collectAsState()
+    val canSave by viewModel.canSave.collectAsState()
     LaunchedEffect(Unit) {
         viewModel.saveSuccess.collect {
             onNavigateToSaveMeal()
@@ -74,9 +76,14 @@ fun CreateMealRoute(
         totalProtein = macros.protein,
         totalCarbs = macros.carbs,
         totalFats = macros.fats,
+        mealName = mealName,
+        onMealNameChanged = viewModel::onMealNameChanged,
+        selectedTag = selectedTag,
+        onTagSelected = viewModel::onTagSelected,
+        canSave = canSave,
         onBack = onNavigateBack,
-        onSave = { viewModel.saveMeal("meal123", MealTag.POST_WORKOUT) },     // top-right "Save" -> go to Save Meal screen
-        onSaveMeal = { viewModel.saveMeal("meal123", MealTag.POST_WORKOUT) }, //bottom "Save Meal" button -> same destination
+        onSave = viewModel::saveMeal,       // top-right "Save" -> go to Save Meal screen
+        onSaveMeal = viewModel::saveMeal,   // bottom "Save Meal" button -> same destination
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         onClearSearch = viewModel::clearSearchQuery,
         onAddFood = { uiResult ->

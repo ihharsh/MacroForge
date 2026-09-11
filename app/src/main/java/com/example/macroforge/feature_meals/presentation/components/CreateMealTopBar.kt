@@ -44,7 +44,8 @@ fun CreateMealTopBar(
     totalCalories: Float,
     onBack: () -> Unit,
     onSave: () -> Unit,
-    isSaved: Boolean = false   // optional saved state (TSX shows green + "Saved!" on tap)
+    isSaved: Boolean = false,   // optional saved state (TSX shows green + "Saved!" on tap)
+    saveEnabled: Boolean = true
 ) {
     Surface(
         color = Surface,
@@ -123,6 +124,7 @@ fun CreateMealTopBar(
             //      label: fontSize:13, fontWeight:700
             Button(
                 onClick = onSave,
+                enabled = saveEnabled,
                 modifier = Modifier
                     .height(SaveTopBarButtonSpec.height),     // 38dp
                 shape = RoundedCornerShape(SaveTopBarButtonSpec.cornerRadius),  // 12dp

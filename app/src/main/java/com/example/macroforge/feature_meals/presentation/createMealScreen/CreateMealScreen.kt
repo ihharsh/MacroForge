@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.presentation.components.*
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
@@ -35,6 +36,11 @@ fun CreateMealScreen(
     totalProtein: Float,
     totalCarbs: Float,
     totalFats: Float,
+    mealName: String,
+    onMealNameChanged: (String) -> Unit,
+    selectedTag: MealTag,
+    onTagSelected: (MealTag) -> Unit,
+    canSave: Boolean,
     onBack: () -> Unit,
     onSave: () -> Unit,
     onSaveMeal: () -> Unit,
@@ -52,7 +58,8 @@ fun CreateMealScreen(
                 foodCount = foods.size,
                 totalCalories = totalCalories,
                 onBack = onBack,
-                onSave = onSave
+                onSave = onSave,
+                saveEnabled = canSave
             )
         },
         bottomBar = {
@@ -61,7 +68,8 @@ fun CreateMealScreen(
                 totalProtein = totalProtein,
                 totalCarbs = totalCarbs,
                 totalFats = totalFats,
-                onSaveMeal = onSaveMeal
+                onSaveMeal = onSaveMeal,
+                saveEnabled = canSave
             )
         }
     ) { padding ->
@@ -76,6 +84,16 @@ fun CreateMealScreen(
                     isActive = searchQuery.isNotEmpty(),
                     onQueryChanged = onSearchQueryChanged,
                     onClear = onClearSearch
+                )
+
+                MealNameField(
+                    name = mealName,
+                    onNameChanged = onMealNameChanged
+                )
+
+                MealTagSelector(
+                    selectedTag = selectedTag,
+                    onTagSelected = onTagSelected
                 )
 
                 Row(

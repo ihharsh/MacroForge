@@ -3,6 +3,7 @@ package com.example.macroforge.feature_meals.presentation.preview
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
 import com.example.macroforge.feature_meals.presentation.createMealScreen.CreateMealScreen
@@ -49,6 +50,11 @@ private fun CreateMealScreenEmptySearchPreview() {
             totalProtein = 46.5f,
             totalCarbs = 0f,
             totalFats = 5.4f,
+            mealName = "Post-Workout Meal",
+            onMealNameChanged = {},
+            selectedTag = MealTag.POST_WORKOUT,
+            onTagSelected = {},
+            canSave = true,
             onBack = {}, onSave = {}, onSaveMeal = {},
             onSearchQueryChanged = {}, onClearSearch = {}, onAddFood = {},
             onQuantityChanged = { _, _ -> }, onRemoveFood = {}

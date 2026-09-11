@@ -9,5 +9,6 @@ interface MealRepository {
     fun getAllMeals(): Flow<List<Meal>>
     suspend fun getMeal(mealId: String): Meal
     suspend fun saveMeal(meal: Meal)
+    suspend fun deleteMeal(mealId: String)
     fun searchMeals(query: String, tag: MealTag?): Flow<List<Meal>>
 }

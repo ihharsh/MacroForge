@@ -1,26 +1,27 @@
 package com.example.macroforge.feature_meals.presentation.savedMealScreen
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.macroforge.feature_meals.domain.MealRepository
 import com.example.macroforge.feature_meals.domain.model.Meal
+import com.example.macroforge.feature_meals.domain.usecase.CalculateDailyTotalsUseCase
+import com.example.macroforge.feature_meals.presentation.util.toDomainTag
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// Placeholder domain type until MealRepository is injected
-// Replace with real MealWithFoods from your Room relation once wired
-data class MealWithFoodsPlaceholder(
-    val meal: Any,
-    val foods: List<Any>,
-    val crossRefs: List<Any>
-)
-
 @HiltViewModel
 class SavedMealsViewModel @Inject constructor(
-     private val mealRepository: MealRepository
+    private val mealRepository: MealRepository,
+    private val calculateDailyTotals: CalculateDailyTotalsUseCase
 ) : ViewModel() {
 
     // ── Search ──────────────────────────────────────────────────────────────
@@ -34,24 +35,19 @@ class SavedMealsViewModel @Inject constructor(
     private val _selectedTag = MutableStateFlow(MealTagUi.ALL)
     val selectedTag: StateFlow<MealTagUi> = _selectedTag.asStateFlow()
 
-    // ── Meals ────────────────────────────────────────────────────────────────
-    // TODO: replace with real repo call:
-//     private val _meals = combine(_searchQuery, _selectedTag) { query, tag ->
-//         mealRepository.searchMeals(query, tag.name)
-//     }.flatMapLatest { it }
-//      .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-    private val _meals = combine(_searchQuery, _selectedTag) {
-        mealRepository.getAllMeals()
+    // ── Meals (filtered by the current search text + tag) ─────────────────────
+    val meals: StateFlow<List<Meal>> = combine(_searchQuery, _selectedTag) { query, tag ->
+        mealRepository.searchMeals(query, tag.toDomainTag())
     }.flatMapLatest { it }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-    //private val _meals = MutableStateFlow<List<MealWithFoodsPlaceholder>>(emptyList())
-     val meals: StateFlow<List<Meal>> = _meals
-    //val meals: StateFlow<List<MealWithFoodsPlaceholder>> = _meals.asStateFlow()
 
-    // ── Total kcal today ─────────────────────────────────────────────────────
-    // TODO: derive from today's meals once repo is wired
-    private val _totalKcalToday = MutableStateFlow(0)
-    val totalKcalToday: StateFlow<Int> = _totalKcalToday.asStateFlow()
+    // ── Total kcal today — independent of the search/tag filter above ─────────
+    private val allMeals: StateFlow<List<Meal>> = mealRepository.getAllMeals()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    val totalKcalToday: StateFlow<Int> = allMeals
+        .map { calculateDailyTotals(it).calories.toInt() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     // ── Event handlers ───────────────────────────────────────────────────────
 
@@ -73,5 +69,11 @@ class SavedMealsViewModel @Inject constructor(
 
     fun onTagSelected(tag: MealTagUi) {
         _selectedTag.value = tag
+    }
+
+    fun onDeleteMeal(mealId: String) {
+        viewModelScope.launch {
+            mealRepository.deleteMeal(mealId)
+        }
     }
 }

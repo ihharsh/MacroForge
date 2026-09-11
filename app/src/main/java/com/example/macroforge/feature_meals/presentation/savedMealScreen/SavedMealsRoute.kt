@@ -2,9 +2,14 @@ package com.example.macroforge.feature_meals.presentation.savedMealScreen
 
 import com.example.macroforge.feature_meals.presentation.util.toFormattedTime
 import com.example.macroforge.feature_meals.presentation.util.toUiTag
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -23,6 +28,8 @@ fun SavedMealsRoute(
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val isSearchActive by viewModel.isSearchActive.collectAsStateWithLifecycle()
     val totalKcalToday by viewModel.totalKcalToday.collectAsStateWithLifecycle()
+
+    var pendingDeleteMeal by remember { mutableStateOf<SavedMealUiItem?>(null) }
 
     // Map domain Meal -> UI model
     val mealUiItems = remember(meals) {
@@ -72,6 +79,24 @@ fun SavedMealsRoute(
         onHomeClicked      = onNavigateToHome,
         onFoodsClicked     = onNavigateToFoods,
         onLogClicked       = onNavigateToLog,
-        onProfileClicked   = onNavigateToProfile
+        onProfileClicked   = onNavigateToProfile,
+        onDeleteMeal       = { uiItem -> pendingDeleteMeal = uiItem }
     )
+
+    pendingDeleteMeal?.let { meal ->
+        AlertDialog(
+            onDismissRequest = { pendingDeleteMeal = null },
+            title = { Text("Delete \"${meal.name}\"?") },
+            text = { Text("This can't be undone.") },
+            confirmButton = {
+                TextButton(onClick = {
+                    viewModel.onDeleteMeal(meal.id)
+                    pendingDeleteMeal = null
+                }) { Text("Delete") }
+            },
+            dismissButton = {
+                TextButton(onClick = { pendingDeleteMeal = null }) { Text("Cancel") }
+            }
+        )
+    }
 }

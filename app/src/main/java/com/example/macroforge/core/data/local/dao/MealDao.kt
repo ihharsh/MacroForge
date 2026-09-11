@@ -26,10 +26,20 @@ interface MealDao {
     @Query("SELECT * FROM meals ORDER BY createdAt DESC")
     fun getAllMealsWithFoods(): Flow<List<MealWithFoods>>
 
+    // Empty string for :tag/:query means "no filter on this field" — an empty
+    // tag matches every mealTag vacuously, an empty query matches every name.
     @Transaction
-    @Query("SELECT * FROM meals WHERE mealName LIKE '%' || :query || '%' OR mealTag = :tag ORDER BY createdAt DESC")
+    @Query(
+        "SELECT * FROM meals " +
+        "WHERE (:tag = '' OR mealTag = :tag) " +
+        "AND (:query = '' OR mealName LIKE '%' || :query || '%') " +
+        "ORDER BY createdAt DESC"
+    )
     fun searchMeals(query: String, tag: String): Flow<List<MealWithFoods>>
 
     @Query("SELECT * FROM meal_food_cross_ref WHERE mealId = :mealId")
     suspend fun getCrossRefsForMeal(mealId: String): List<MealFoodCrossRef>
+
+    @Query("DELETE FROM meals WHERE mealId = :mealId")
+    suspend fun deleteMeal(mealId: String)
 }

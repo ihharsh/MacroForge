@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -38,6 +39,12 @@ class CreateMealViewModel @Inject constructor(
     }
     private val _saveSuccess = MutableSharedFlow<Unit>()
     val saveSuccess = _saveSuccess.asSharedFlow()
+
+    private val _mealName = MutableStateFlow("")
+    val mealName: StateFlow<String> = _mealName
+
+    private val _selectedTag = MutableStateFlow(MealTag.BREAKFAST)
+    val selectedTag: StateFlow<MealTag> = _selectedTag
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
@@ -62,7 +69,16 @@ class CreateMealViewModel @Inject constructor(
             MacroTotals(0f, 0f, 0f, 0f)
         )
 
+    // A meal needs a name and at least one food before it can be saved.
+    val canSave: StateFlow<Boolean> = combine(_mealName, _selectedFoods) { name, foods ->
+        name.isNotBlank() && foods.isNotEmpty()
+    }.stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5000), false)
+
     fun onSearchQueryChanged(query: String) { _searchQuery.value = query }
+
+    fun onMealNameChanged(name: String) { _mealName.value = name }
+
+    fun onTagSelected(tag: MealTag) { _selectedTag.value = tag }
 
     fun addFood(food: Food, quantity: Float) {
         _selectedFoods.value = _selectedFoods.value + (food to quantity)
@@ -76,19 +92,23 @@ class CreateMealViewModel @Inject constructor(
         _selectedFoods.value = _selectedFoods.value - food
     }
 
-    fun saveMeal(name: String, tag: MealTag) {
+    fun saveMeal() {
+        val name = _mealName.value.trim()
+        val foods = _selectedFoods.value
+        if (name.isBlank() || foods.isEmpty()) return
+
         viewModelScope.launch {
             val now = System.currentTimeMillis()
             val meal = Meal(
                 mealId = UUID.randomUUID().toString(),
                 mealName = name,
                 mealRecipe = null,
-                mealTag = tag,
+                mealTag = _selectedTag.value,
                 ownerId = "local_user",
                 createdAt = now,
                 updatedAt = now,
                 syncStatus = "PENDING",
-                entries = _selectedFoods.value.map { (food, quantity) -> MealFoodEntry(food, quantity) }
+                entries = foods.map { (food, quantity) -> MealFoodEntry(food, quantity) }
             )
             mealRepository.saveMeal(meal)
             _saveSuccess.emit(Unit)

@@ -45,6 +45,10 @@ class MealRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun deleteMeal(mealId: String) {
+        mealDao.deleteMeal(mealId)
+    }
+
     override fun searchMeals(query: String, tag: MealTag?): Flow<List<Meal>> =
         mealDao.searchMeals(query, tag?.name ?: "").map { meals -> meals.map { it.toDomain() } }
 }

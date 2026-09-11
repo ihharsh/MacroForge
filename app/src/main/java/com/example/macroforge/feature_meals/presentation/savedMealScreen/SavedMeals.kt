@@ -104,6 +104,7 @@ fun SavedMealsScreen(
     onFoodsClicked: () -> Unit,
     onLogClicked: () -> Unit,
     onProfileClicked: () -> Unit,
+    onDeleteMeal: (SavedMealUiItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -309,7 +310,8 @@ fun SavedMealsScreen(
                 items(meals, key = { it.id }) { meal ->
                     SavedMealCard(
                         meal = meal,
-                        onClick = { onMealClicked(meal) }
+                        onClick = { onMealClicked(meal) },
+                        onDelete = { onDeleteMeal(meal) }
                     )
                 }
             }
@@ -324,7 +326,8 @@ fun SavedMealsScreen(
 @Composable
 private fun SavedMealCard(
     meal: SavedMealUiItem,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onDelete: () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -372,6 +375,17 @@ private fun SavedMealCard(
                         tint = TextGhost,
                         modifier = Modifier.size(18.dp)
                     )
+                    IconButton(
+                        onClick = onDelete,
+                        modifier = Modifier.size(24.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete ${meal.name}",
+                            tint = TextGhost,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
                 }
             }
 
@@ -709,7 +723,8 @@ private fun SavedMealsScreenPreview() {
             onHomeClicked = {},
             onFoodsClicked = {},
             onLogClicked = {},
-            onProfileClicked = {}
+            onProfileClicked = {},
+            onDeleteMeal = {}
         )
     }
 }
@@ -734,7 +749,8 @@ private fun SavedMealsScreenSearchPreview() {
             onHomeClicked = {},
             onFoodsClicked = {},
             onLogClicked = {},
-            onProfileClicked = {}
+            onProfileClicked = {},
+            onDeleteMeal = {}
         )
     }
 }
