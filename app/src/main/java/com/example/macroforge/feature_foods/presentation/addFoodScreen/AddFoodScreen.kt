@@ -44,25 +44,9 @@ import com.example.macroforge.core.ui.theme.TextPrimary
 
 @Composable
 fun AddFoodScreen(
-    name: String,
-    onNameChanged: (String) -> Unit,
-    unitType: String,
-    onUnitTypeChanged: (String) -> Unit,
-    baseNumberText: String,
-    onBaseNumberChanged: (String) -> Unit,
-    caloriesText: String,
-    onCaloriesChanged: (String) -> Unit,
-    proteinText: String,
-    onProteinChanged: (String) -> Unit,
-    carbsText: String,
-    onCarbsChanged: (String) -> Unit,
-    fatsText: String,
-    onFatsChanged: (String) -> Unit,
-    canSave: Boolean,
-    isSaving: Boolean,
-    saveErrorMessage: String?,
+    uiState: AddFoodUiState,
+    onEvent: (AddFoodEvent) -> Unit,
     onBack: () -> Unit,
-    onSave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -98,8 +82,8 @@ fun AddFoodScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             OutlinedTextField(
-                value = name,
-                onValueChange = onNameChanged,
+                value = uiState.name,
+                onValueChange = { onEvent(AddFoodEvent.NameChanged(it)) },
                 label = { Text("Food name") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
@@ -110,16 +94,16 @@ fun AddFoodScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 OutlinedTextField(
-                    value = baseNumberText,
-                    onValueChange = onBaseNumberChanged,
+                    value = uiState.baseNumberText,
+                    onValueChange = { onEvent(AddFoodEvent.BaseNumberChanged(it)) },
                     label = { Text("Serving size") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.weight(1f)
                 )
                 OutlinedTextField(
-                    value = unitType,
-                    onValueChange = onUnitTypeChanged,
+                    value = uiState.unitType,
+                    onValueChange = { onEvent(AddFoodEvent.UnitTypeChanged(it)) },
                     label = { Text("Unit") },
                     singleLine = true,
                     modifier = Modifier.weight(1f)
@@ -127,8 +111,8 @@ fun AddFoodScreen(
             }
 
             OutlinedTextField(
-                value = caloriesText,
-                onValueChange = onCaloriesChanged,
+                value = uiState.caloriesText,
+                onValueChange = { onEvent(AddFoodEvent.CaloriesChanged(it)) },
                 label = { Text("Calories") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -140,24 +124,24 @@ fun AddFoodScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 OutlinedTextField(
-                    value = proteinText,
-                    onValueChange = onProteinChanged,
+                    value = uiState.proteinText,
+                    onValueChange = { onEvent(AddFoodEvent.ProteinChanged(it)) },
                     label = { Text("Protein (g)") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.weight(1f)
                 )
                 OutlinedTextField(
-                    value = carbsText,
-                    onValueChange = onCarbsChanged,
+                    value = uiState.carbsText,
+                    onValueChange = { onEvent(AddFoodEvent.CarbsChanged(it)) },
                     label = { Text("Carbs (g)") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.weight(1f)
                 )
                 OutlinedTextField(
-                    value = fatsText,
-                    onValueChange = onFatsChanged,
+                    value = uiState.fatsText,
+                    onValueChange = { onEvent(AddFoodEvent.FatsChanged(it)) },
                     label = { Text("Fat (g)") },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -165,22 +149,22 @@ fun AddFoodScreen(
                 )
             }
 
-            if (saveErrorMessage != null) {
-                Text(text = saveErrorMessage, color = Red, fontSize = 13.sp)
+            if (uiState.saveErrorMessage != null) {
+                Text(text = uiState.saveErrorMessage, color = Red, fontSize = 13.sp)
             }
 
             Spacer(Modifier.height(4.dp))
 
             Button(
-                onClick = onSave,
-                enabled = canSave && !isSaving,
+                onClick = { onEvent(AddFoodEvent.Save) },
+                enabled = uiState.canSave && !uiState.isSaving,
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Orange),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp)
             ) {
-                if (isSaving) {
+                if (uiState.isSaving) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(20.dp),
                         color = Color.White,
