@@ -3,9 +3,8 @@ package com.example.macroforge.feature_meals.presentation.savedMealScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.macroforge.core.data.local.entity.MealEntity
-import com.example.macroforge.core.data.local.relation.MealWithFoods
 import com.example.macroforge.feature_meals.domain.MealRepository
+import com.example.macroforge.feature_meals.domain.model.Meal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -46,7 +45,7 @@ class SavedMealsViewModel @Inject constructor(
     }.flatMapLatest { it }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     //private val _meals = MutableStateFlow<List<MealWithFoodsPlaceholder>>(emptyList())
-     val meals: StateFlow<List<MealWithFoods>> = _meals
+     val meals: StateFlow<List<Meal>> = _meals
     //val meals: StateFlow<List<MealWithFoodsPlaceholder>> = _meals.asStateFlow()
 
     // ── Total kcal today ─────────────────────────────────────────────────────

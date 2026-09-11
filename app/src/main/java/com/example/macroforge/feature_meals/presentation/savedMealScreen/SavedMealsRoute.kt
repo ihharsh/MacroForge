@@ -24,31 +24,20 @@ fun SavedMealsRoute(
     val isSearchActive by viewModel.isSearchActive.collectAsStateWithLifecycle()
     val totalKcalToday by viewModel.totalKcalToday.collectAsStateWithLifecycle()
 
-    // Map domain MealWithFoods -> UI model
-    // Will be populated once MealRepository is wired in ViewModel
+    // Map domain Meal -> UI model
     val mealUiItems = remember(meals) {
-        meals.map { mealWithFoods ->
-            val meal = mealWithFoods.meal
-
-            // Scale each food's macros by quantity via cross-ref
-            // and sum for meal totals
-            val crossRefs = mealWithFoods.crossRefs   // List<MealFoodCrossRef>
-            val foods = mealWithFoods.foods            // List<FoodEntity>
-
+        meals.map { meal ->
             var totalCal = 0f
             var totalProtein = 0f
             var totalCarbs = 0f
             var totalFats = 0f
 
-            foods.forEach { food ->
-                val qty = crossRefs
-                    .firstOrNull { it.foodId == food.foodId }
-                    ?.quantity ?: 0f
-                val ratio = qty / food.baseNumber
-                totalCal     += food.calories * ratio
-                totalProtein += food.protein  * ratio
-                totalCarbs   += food.carbs    * ratio
-                totalFats    += food.fats     * ratio
+            meal.entries.forEach { entry ->
+                val ratio = entry.quantity / entry.food.baseNumber
+                totalCal     += entry.food.calories * ratio
+                totalProtein += entry.food.protein  * ratio
+                totalCarbs   += entry.food.carbs    * ratio
+                totalFats    += entry.food.fats     * ratio
             }
 
             SavedMealUiItem(

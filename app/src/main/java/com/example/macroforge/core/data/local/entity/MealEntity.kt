@@ -2,6 +2,7 @@ package com.example.macroforge.core.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import kotlinx.serialization.Serializable
 
 // entity/MealEntity.kt
@@ -17,7 +18,3 @@ data class MealEntity(
     val updatedAt: Long = System.currentTimeMillis(),
     val syncStatus: String = "PENDING"
 )
-
-enum class MealTag {
-    BREAKFAST, LUNCH, DINNER, SNACK, PRE_WORKOUT, POST_WORKOUT
-}

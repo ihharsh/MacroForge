@@ -1,7 +1,7 @@
 package com.example.macroforge.feature_meals.presentation.util
 
 
-import com.example.macroforge.core.data.local.entity.MealTag
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.presentation.savedMealScreen.MealTagUi
 import java.text.SimpleDateFormat
 import java.util.*
@@ -13,7 +13,7 @@ import java.util.*
 
 /**
  * Maps domain MealTag enum → UI MealTagUi enum for display.
- * Called in SavedMealsRoute when building SavedMealUiItem from MealEntity.
+ * Called in SavedMealsRoute when building SavedMealUiItem from the domain Meal.
  */
 fun MealTag.toUiTag(): MealTagUi = when (this) {
     MealTag.BREAKFAST    -> MealTagUi.BREAKFAST
@@ -41,7 +41,7 @@ fun MealTagUi.toDomainTag(): MealTag? = when (this) {
 
 /**
  * Formats a Unix timestamp (Long) to a readable time string like "7:30 AM".
- * Called in SavedMealsRoute when mapping MealEntity.createdAt to UiItem.time.
+ * Called in SavedMealsRoute when mapping Meal.createdAt to UiItem.time.
  */
 fun Long.toFormattedTime(): String {
     val sdf = SimpleDateFormat("h:mm a", Locale.getDefault())

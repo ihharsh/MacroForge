@@ -1,4 +1,4 @@
-package com.yourname.macroforge.feature_meals.presentation
+package com.example.macroforge.feature_meals.presentation.createMealScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,11 +18,11 @@ import androidx.compose.ui.zIndex
 import com.example.macroforge.feature_meals.presentation.components.*
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
-import com.yourname.macroforge.core.ui.theme.Background
-import com.yourname.macroforge.core.ui.theme.Orange
-import com.yourname.macroforge.core.ui.theme.SectionHeader
-import com.yourname.macroforge.core.ui.theme.TextGhost
-import com.yourname.macroforge.core.ui.theme.TextSecondary
+import com.example.macroforge.core.ui.theme.Background
+import com.example.macroforge.core.ui.theme.Orange
+import com.example.macroforge.core.ui.theme.SectionHeader
+import com.example.macroforge.core.ui.theme.TextGhost
+import com.example.macroforge.core.ui.theme.TextSecondary
 
 
 // ---------- Pure, stateless, preview-friendly screen ----------

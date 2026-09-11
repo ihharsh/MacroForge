@@ -3,12 +3,12 @@ package com.example.macroforge.feature_meals.presentation.createMealScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.macroforge.core.data.local.FoodSeeder
-import com.example.macroforge.core.data.local.entity.FoodEntity
-import com.example.macroforge.core.data.local.entity.MealEntity
-import com.example.macroforge.core.data.local.entity.MealFoodCrossRef
-import com.example.macroforge.core.data.local.entity.MealTag
 import com.example.macroforge.feature_foods.domain.FoodRepository
+import com.example.macroforge.feature_foods.domain.model.Food
 import com.example.macroforge.feature_meals.domain.MealRepository
+import com.example.macroforge.feature_meals.domain.model.Meal
+import com.example.macroforge.feature_meals.domain.model.MealFoodEntry
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.domain.usecase.CalculateMealMacrosUseCase
 import com.example.macroforge.feature_meals.domain.usecase.MacroTotals
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,15 +41,15 @@ class CreateMealViewModel @Inject constructor(
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
-    val searchResults: StateFlow<List<FoodEntity>> = _searchQuery
+    val searchResults: StateFlow<List<Food>> = _searchQuery
         .debounce(200)
         .flatMapLatest { query ->
             if (query.isBlank()) flowOf(emptyList()) else foodRepository.searchFoods(query)
         }
         .stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5000), emptyList())
 
-    private val _selectedFoods = MutableStateFlow<Map<FoodEntity, Float>>(emptyMap())
-    val selectedFoods: StateFlow<Map<FoodEntity, Float>> = _selectedFoods
+    private val _selectedFoods = MutableStateFlow<Map<Food, Float>>(emptyMap())
+    val selectedFoods: StateFlow<Map<Food, Float>> = _selectedFoods
 
     val macroTotals: StateFlow<MacroTotals> = _selectedFoods
         .map { selected ->
@@ -64,26 +64,33 @@ class CreateMealViewModel @Inject constructor(
 
     fun onSearchQueryChanged(query: String) { _searchQuery.value = query }
 
-    fun addFood(food: FoodEntity, quantity: Float) {
+    fun addFood(food: Food, quantity: Float) {
         _selectedFoods.value = _selectedFoods.value + (food to quantity)
     }
 
-    fun updateQuantity(food: FoodEntity, quantity: Float) {
+    fun updateQuantity(food: Food, quantity: Float) {
         _selectedFoods.value = _selectedFoods.value + (food to quantity)
     }
 
-    fun removeFood(food: FoodEntity) {
+    fun removeFood(food: Food) {
         _selectedFoods.value = _selectedFoods.value - food
     }
 
     fun saveMeal(name: String, tag: MealTag) {
         viewModelScope.launch {
-            val mealId = UUID.randomUUID().toString()
-            val meal = MealEntity(mealId, name, null, tag, ownerId = "local_user")
-            val crossRefs = _selectedFoods.value.map { (food, qty) ->
-                MealFoodCrossRef(mealId, food.foodId, qty)
-            }
-            mealRepository.saveMeal(meal, crossRefs)
+            val now = System.currentTimeMillis()
+            val meal = Meal(
+                mealId = UUID.randomUUID().toString(),
+                mealName = name,
+                mealRecipe = null,
+                mealTag = tag,
+                ownerId = "local_user",
+                createdAt = now,
+                updatedAt = now,
+                syncStatus = "PENDING",
+                entries = _selectedFoods.value.map { (food, quantity) -> MealFoodEntry(food, quantity) }
+            )
+            mealRepository.saveMeal(meal)
             _saveSuccess.emit(Unit)
         }
     }

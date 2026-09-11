@@ -26,8 +26,9 @@ interface MealDao {
     @Query("SELECT * FROM meals ORDER BY createdAt DESC")
     fun getAllMealsWithFoods(): Flow<List<MealWithFoods>>
 
-    @Query("SELECT * FROM meals WHERE mealName LIKE '%' || :query || '%' OR mealTag = :tag")
-    fun searchMeals(query: String, tag: String): Flow<List<MealEntity>>
+    @Transaction
+    @Query("SELECT * FROM meals WHERE mealName LIKE '%' || :query || '%' OR mealTag = :tag ORDER BY createdAt DESC")
+    fun searchMeals(query: String, tag: String): Flow<List<MealWithFoods>>
 
     @Query("SELECT * FROM meal_food_cross_ref WHERE mealId = :mealId")
     suspend fun getCrossRefsForMeal(mealId: String): List<MealFoodCrossRef>

@@ -1,7 +1,8 @@
 package com.example.macroforge.core.data.local
 
 import android.content.Context
-import com.example.macroforge.core.data.local.entity.FoodEntity
+import com.example.macroforge.core.data.local.dto.SeedFoodDto
+import com.example.macroforge.core.data.local.dto.toDomain
 import com.example.macroforge.feature_foods.domain.FoodRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
@@ -16,7 +17,7 @@ class FoodSeeder @Inject constructor(
     suspend fun seedIfNeeded() {
         val json = context.assets.open("seed_foods.json")
             .bufferedReader().use { it.readText() }
-        val foods: List<FoodEntity> = Json.decodeFromString(json)
-        foodRepository.seedMasterFoodsIfEmpty(foods)
+        val seedFoods: List<SeedFoodDto> = Json.decodeFromString(json)
+        foodRepository.seedMasterFoodsIfEmpty(seedFoods.map { it.toDomain() })
     }
 }

@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import com.example.macroforge.core.ui.theme.ComponentDefaults.searchTextFieldColors
-import com.yourname.macroforge.core.ui.theme.Orange
-import com.yourname.macroforge.core.ui.theme.SearchPlaceholder
-import com.yourname.macroforge.core.ui.theme.TextGhost
-import com.yourname.macroforge.core.ui.theme.TextSecondary
+import com.example.macroforge.core.ui.theme.Orange
+import com.example.macroforge.core.ui.theme.SearchPlaceholder
+import com.example.macroforge.core.ui.theme.TextGhost
+import com.example.macroforge.core.ui.theme.TextSecondary
 
 @Composable
 fun SearchBar(

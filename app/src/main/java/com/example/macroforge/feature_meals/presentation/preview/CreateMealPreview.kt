@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
-import com.yourname.macroforge.feature_meals.presentation.CreateMealScreen
+import com.example.macroforge.feature_meals.presentation.createMealScreen.CreateMealScreen
 
 // ---------- Previews ----------
 //@Preview(showBackground = true, widthDp = 390, heightDp = 844, name = "Searching")

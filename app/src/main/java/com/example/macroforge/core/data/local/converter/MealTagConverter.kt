@@ -1,7 +1,7 @@
 package com.example.macroforge.core.data.local.converter
 
 import androidx.room.TypeConverter
-import com.example.macroforge.core.data.local.entity.MealTag
+import com.example.macroforge.feature_meals.domain.model.MealTag
 
 // converter/MealTagConverter.kt
 class MealTagConverter {

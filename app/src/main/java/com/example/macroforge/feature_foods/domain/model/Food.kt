@@ -1,12 +1,9 @@
-package com.example.macroforge.core.data.local.entity
+package com.example.macroforge.feature_foods.domain.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-// entity/FoodEntity.kt
-@Entity(tableName = "foods")
-data class FoodEntity(
-    @PrimaryKey val foodId: String,
+// Domain model for a food item — framework-agnostic (no Room/Compose/Firebase),
+// so it can move into a shared/KMP module later without changes.
+data class Food(
+    val foodId: String,
     val foodName: String,
     val baseNumber: Float,
     val unitType: String,

@@ -7,10 +7,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.macroforge.core.data.local.entity.MealTag
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
-import com.yourname.macroforge.feature_meals.presentation.CreateMealScreen
 
 @Composable
 fun CreateMealRoute(
@@ -28,7 +27,7 @@ fun CreateMealRoute(
         }
     }
 
-    // Map domain FoodEntity -> UI search result model
+    // Map domain Food -> UI search result model
     val searchResultUiItems = remember(searchResults) {
         searchResults.map { food ->
             FoodSearchResultUiItem(
@@ -41,7 +40,7 @@ fun CreateMealRoute(
         }
     }
 
-    // Map domain (FoodEntity + quantity) -> UI list item, scaling macros by quantity
+    // Map domain (Food + quantity) -> UI list item, scaling macros by quantity
     val foodUiItems = remember(selectedFoods) {
         selectedFoods.map { (food, qty) ->
             val ratio = qty / food.baseNumber
@@ -59,7 +58,7 @@ fun CreateMealRoute(
         }
     }
 
-    // Lookup to map a UI item back to its real FoodEntity for ViewModel calls
+    // Lookup to map a UI item back to its real Food for ViewModel calls
     val foodById = remember(selectedFoods) {
         selectedFoods.keys.associateBy { it.foodId }
     }

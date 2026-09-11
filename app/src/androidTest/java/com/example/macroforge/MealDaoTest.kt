@@ -9,7 +9,7 @@ import com.example.macroforge.core.data.local.dao.MealDao
 import com.example.macroforge.core.data.local.entity.FoodEntity
 import com.example.macroforge.core.data.local.entity.MealEntity
 import com.example.macroforge.core.data.local.entity.MealFoodCrossRef
-import com.example.macroforge.core.data.local.entity.MealTag
+import com.example.macroforge.feature_meals.domain.model.MealTag
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

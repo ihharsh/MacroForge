@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.macroforge.core.navigation.MacroForgeNavHost
-import com.yourname.macroforge.core.ui.theme.MacroForgeTheme
+import com.example.macroforge.core.ui.theme.MacroForgeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 @AndroidEntryPoint

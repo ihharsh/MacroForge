@@ -5,11 +5,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.yourname.macroforge.core.ui.theme.Background
-import com.yourname.macroforge.core.ui.theme.Orange
-import com.yourname.macroforge.core.ui.theme.Surface
-import com.yourname.macroforge.core.ui.theme.TextPrimary
-import com.yourname.macroforge.core.ui.theme.TextSecondary
 
 object ComponentDefaults {
 

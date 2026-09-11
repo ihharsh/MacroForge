@@ -1,9 +1,12 @@
 package com.example.macroforge.feature_foods.data
 
 import com.example.macroforge.core.data.local.dao.FoodDao
-import com.example.macroforge.core.data.local.entity.FoodEntity
+import com.example.macroforge.feature_foods.data.mapper.toDomain
+import com.example.macroforge.feature_foods.data.mapper.toEntity
 import com.example.macroforge.feature_foods.domain.FoodRepository
+import com.example.macroforge.feature_foods.domain.model.Food
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 // feature_foods/data/FoodRepositoryImpl.kt
@@ -11,18 +14,19 @@ class FoodRepositoryImpl @Inject constructor(
     private val foodDao: FoodDao
 ) : FoodRepository {
 
-    override fun getAllFoods(): Flow<List<FoodEntity>> = foodDao.getAllFoods()
+    override fun getAllFoods(): Flow<List<Food>> =
+        foodDao.getAllFoods().map { entities -> entities.map { it.toDomain() } }
 
-    override fun searchFoods(query: String): Flow<List<FoodEntity>> =
-        foodDao.searchFoods(query)
+    override fun searchFoods(query: String): Flow<List<Food>> =
+        foodDao.searchFoods(query).map { entities -> entities.map { it.toDomain() } }
 
-    override suspend fun addCustomFood(food: FoodEntity) {
-        foodDao.insert(food)
+    override suspend fun addCustomFood(food: Food) {
+        foodDao.insert(food.toEntity())
     }
 
-    override suspend fun seedMasterFoodsIfEmpty(foods: List<FoodEntity>) {
+    override suspend fun seedMasterFoodsIfEmpty(foods: List<Food>) {
         if (foodDao.getCount() == 0) {
-            foodDao.insertAll(foods)
+            foodDao.insertAll(foods.map { it.toEntity() })
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.yourname.macroforge.core.ui.theme
+package com.example.macroforge.core.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme

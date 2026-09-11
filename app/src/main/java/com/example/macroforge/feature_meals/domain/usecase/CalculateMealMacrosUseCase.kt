@@ -1,6 +1,6 @@
 package com.example.macroforge.feature_meals.domain.usecase
 
-import com.example.macroforge.core.data.local.entity.FoodEntity
+import com.example.macroforge.feature_foods.domain.model.Food
 import javax.inject.Inject
 
 // feature_meals/domain/usecase/CalculateMealMacrosUseCase.kt
@@ -13,7 +13,7 @@ data class MacroTotals(
 
 class CalculateMealMacrosUseCase @Inject constructor() {
 
-    operator fun invoke(foods: List<FoodEntity>, quantities: Map<String, Float>): MacroTotals {
+    operator fun invoke(foods: List<Food>, quantities: Map<String, Float>): MacroTotals {
         var cal = 0f; var carb = 0f; var protein = 0f; var fat = 0f
 
         foods.forEach { food ->
