@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
-import com.example.macroforge.feature_meals.presentation.util.formatMacro
+import com.example.macroforge.core.util.formatMacro
 import com.example.macroforge.core.ui.theme.Background
 import com.example.macroforge.core.ui.theme.Blue
 import com.example.macroforge.core.ui.theme.Orange

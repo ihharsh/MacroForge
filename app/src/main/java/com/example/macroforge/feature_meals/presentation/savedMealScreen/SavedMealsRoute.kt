@@ -1,5 +1,6 @@
 package com.example.macroforge.feature_meals.presentation.savedMealScreen
 
+import com.example.macroforge.core.domain.UiState
 import com.example.macroforge.feature_meals.presentation.util.toFormattedTime
 import com.example.macroforge.feature_meals.presentation.util.toUiTag
 import androidx.compose.material3.AlertDialog
@@ -23,7 +24,7 @@ fun SavedMealsRoute(
     onNavigateToProfile: () -> Unit,
     viewModel: SavedMealsViewModel = hiltViewModel()
 ) {
-    val meals by viewModel.meals.collectAsStateWithLifecycle()
+    val mealsState by viewModel.mealsState.collectAsStateWithLifecycle()
     val selectedTag by viewModel.selectedTag.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val isSearchActive by viewModel.isSearchActive.collectAsStateWithLifecycle()
@@ -31,40 +32,46 @@ fun SavedMealsRoute(
 
     var pendingDeleteMeal by remember { mutableStateOf<SavedMealUiItem?>(null) }
 
-    // Map domain Meal -> UI model
-    val mealUiItems = remember(meals) {
-        meals.map { meal ->
-            var totalCal = 0f
-            var totalProtein = 0f
-            var totalCarbs = 0f
-            var totalFats = 0f
+    // Map domain UiState<List<Meal>> -> UiState<List<SavedMealUiItem>>
+    val mealUiState = remember(mealsState) {
+        when (val state = mealsState) {
+            is UiState.Loading -> UiState.Loading
+            is UiState.Error -> UiState.Error(state.message)
+            is UiState.Success -> UiState.Success(
+                state.data.map { meal ->
+                    var totalCal = 0f
+                    var totalProtein = 0f
+                    var totalCarbs = 0f
+                    var totalFats = 0f
 
-            meal.entries.forEach { entry ->
-                val ratio = entry.quantity / entry.food.baseNumber
-                totalCal     += entry.food.calories * ratio
-                totalProtein += entry.food.protein  * ratio
-                totalCarbs   += entry.food.carbs    * ratio
-                totalFats    += entry.food.fats     * ratio
-            }
+                    meal.entries.forEach { entry ->
+                        val ratio = entry.quantity / entry.food.baseNumber
+                        totalCal     += entry.food.calories * ratio
+                        totalProtein += entry.food.protein  * ratio
+                        totalCarbs   += entry.food.carbs    * ratio
+                        totalFats    += entry.food.fats     * ratio
+                    }
 
-            SavedMealUiItem(
-                id          = meal.mealId,
-                name        = meal.mealName,
-                tag         = meal.mealTag.toUiTag(),
-                time        = meal.createdAt.toFormattedTime(),
-                calories    = totalCal.toInt(),
-                protein     = totalProtein,
-                carbs       = totalCarbs,
-                fats        = totalFats,
-                syncStatus  = if (meal.syncStatus == "SYNCED") SyncStatus.SYNCED
-                else SyncStatus.PENDING,
-                calorieGoal = 800   // TODO: pull from user profile/settings
+                    SavedMealUiItem(
+                        id          = meal.mealId,
+                        name        = meal.mealName,
+                        tag         = meal.mealTag.toUiTag(),
+                        time        = meal.createdAt.toFormattedTime(),
+                        calories    = totalCal.toInt(),
+                        protein     = totalProtein,
+                        carbs       = totalCarbs,
+                        fats        = totalFats,
+                        syncStatus  = if (meal.syncStatus == "SYNCED") SyncStatus.SYNCED
+                        else SyncStatus.PENDING,
+                        calorieGoal = 800   // TODO: pull from user profile/settings
+                    )
+                }
             )
         }
     }
 
     SavedMealsScreen(
-        meals              = mealUiItems,
+        mealsState         = mealUiState,
         selectedTag        = selectedTag,
         searchQuery        = searchQuery,
         isSearchActive     = isSearchActive,

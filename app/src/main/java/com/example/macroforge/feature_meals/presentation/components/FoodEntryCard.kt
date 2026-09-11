@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.example.macroforge.core.ui.theme.*
 import com.example.macroforge.core.ui.theme.ComponentDefaults.quantityTextFieldColors
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
-import com.example.macroforge.feature_meals.presentation.util.formatMacro
+import com.example.macroforge.core.util.formatMacro
 
 @Composable
 fun FoodEntryCard(

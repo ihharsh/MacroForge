@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.macroforge.core.domain.UiState
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
 
@@ -23,6 +24,10 @@ fun CreateMealRoute(
     val mealName by viewModel.mealName.collectAsState()
     val selectedTag by viewModel.selectedTag.collectAsState()
     val canSave by viewModel.canSave.collectAsState()
+    val saveState by viewModel.saveState.collectAsState()
+    val isSaving = saveState is UiState.Loading
+    val saveErrorMessage = (saveState as? UiState.Error)?.message
+
     LaunchedEffect(Unit) {
         viewModel.saveSuccess.collect {
             onNavigateToSaveMeal()
@@ -81,6 +86,8 @@ fun CreateMealRoute(
         selectedTag = selectedTag,
         onTagSelected = viewModel::onTagSelected,
         canSave = canSave,
+        isSaving = isSaving,
+        saveErrorMessage = saveErrorMessage,
         onBack = onNavigateBack,
         onSave = viewModel::saveMeal,       // top-right "Save" -> go to Save Meal screen
         onSaveMeal = viewModel::saveMeal,   // bottom "Save Meal" button -> same destination

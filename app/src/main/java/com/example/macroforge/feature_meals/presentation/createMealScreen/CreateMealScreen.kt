@@ -15,12 +15,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import com.example.macroforge.core.ui.components.SearchBar
 import com.example.macroforge.feature_meals.domain.model.MealTag
 import com.example.macroforge.feature_meals.presentation.components.*
 import com.example.macroforge.feature_meals.presentation.model.FoodSearchResultUiItem
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
 import com.example.macroforge.core.ui.theme.Background
 import com.example.macroforge.core.ui.theme.Orange
+import com.example.macroforge.core.ui.theme.Red
 import com.example.macroforge.core.ui.theme.SectionHeader
 import com.example.macroforge.core.ui.theme.TextGhost
 import com.example.macroforge.core.ui.theme.TextSecondary
@@ -41,6 +43,8 @@ fun CreateMealScreen(
     selectedTag: MealTag,
     onTagSelected: (MealTag) -> Unit,
     canSave: Boolean,
+    isSaving: Boolean,
+    saveErrorMessage: String?,
     onBack: () -> Unit,
     onSave: () -> Unit,
     onSaveMeal: () -> Unit,
@@ -59,7 +63,8 @@ fun CreateMealScreen(
                 totalCalories = totalCalories,
                 onBack = onBack,
                 onSave = onSave,
-                saveEnabled = canSave
+                saveEnabled = canSave && !isSaving,
+                isSaving = isSaving
             )
         },
         bottomBar = {
@@ -69,7 +74,8 @@ fun CreateMealScreen(
                 totalCarbs = totalCarbs,
                 totalFats = totalFats,
                 onSaveMeal = onSaveMeal,
-                saveEnabled = canSave
+                saveEnabled = canSave && !isSaving,
+                isSaving = isSaving
             )
         }
     ) { padding ->
@@ -95,6 +101,15 @@ fun CreateMealScreen(
                     selectedTag = selectedTag,
                     onTagSelected = onTagSelected
                 )
+
+                if (saveErrorMessage != null) {
+                    Text(
+                        text = saveErrorMessage,
+                        color = Red,
+                        fontSize = 13.sp,
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp)
+                    )
+                }
 
                 Row(
                     modifier = Modifier

@@ -1,4 +1,4 @@
-package com.example.macroforge.feature_meals.presentation.components
+package com.example.macroforge.core.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,12 +26,13 @@ fun SearchBar(
     query: String,
     isActive: Boolean,
     onQueryChanged: (String) -> Unit,
-    onClear: () -> Unit
+    onClear: () -> Unit,
+    placeholder: String = "Search foods..."
 ) {
     OutlinedTextField(
         value = query,
         onValueChange = onQueryChanged,
-        placeholder = { Text("Search foods...", style = SearchPlaceholder, color = TextSecondary) },
+        placeholder = { Text(placeholder, style = SearchPlaceholder, color = TextSecondary) },
         leadingIcon = {
             Icon(Icons.Default.Search, contentDescription = null, tint = if (isActive) Orange else TextGhost)
         },

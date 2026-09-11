@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,7 +39,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.macroforge.feature_meals.presentation.util.formatMacro
+import com.example.macroforge.core.util.formatMacro
 import com.example.macroforge.core.ui.theme.Amber
 import com.example.macroforge.core.ui.theme.Background
 import com.example.macroforge.core.ui.theme.Blue
@@ -54,7 +55,8 @@ fun MealTotalFooter(
     totalCarbs: Float,
     totalFats: Float,
     onSaveMeal: () -> Unit,
-    saveEnabled: Boolean = true
+    saveEnabled: Boolean = true,
+    isSaving: Boolean = false
 ) {
     Surface(
         color = Surface,
@@ -119,9 +121,17 @@ fun MealTotalFooter(
                 colors = ButtonDefaults.buttonColors(containerColor = Orange),
                 modifier = Modifier.fillMaxWidth().height(56.dp)
             ) {
-                Icon(Icons.Default.LocalFireDepartment, contentDescription = null)
-                Spacer(Modifier.width(8.dp))
-                Text("Save Meal", fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                if (isSaving) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = Color.White,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Icon(Icons.Default.LocalFireDepartment, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text("Save Meal", fontSize = 17.sp, fontWeight = FontWeight.Bold)
+                }
             }
         }
     }

@@ -23,10 +23,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.macroforge.core.domain.UiState
 import com.example.macroforge.core.ui.theme.*
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -88,7 +90,7 @@ private fun tagBg(tag: MealTagUi): Color = when (tag) {
 
 @Composable
 fun SavedMealsScreen(
-    meals: List<SavedMealUiItem>,
+    mealsState: UiState<List<SavedMealUiItem>>,
     selectedTag: MealTagUi,
     searchQuery: String,
     isSearchActive: Boolean,
@@ -107,6 +109,8 @@ fun SavedMealsScreen(
     onDeleteMeal: (SavedMealUiItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val mealCount = (mealsState as? UiState.Success)?.data?.size ?: 0
+
     Scaffold(
         containerColor = Background,
         bottomBar = {
@@ -169,7 +173,7 @@ fun SavedMealsScreen(
                             )
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    text = "${meals.size} meals · ",
+                                    text = "$mealCount meals · ",
                                     fontSize = 13.sp,
                                     color = TextSecondary,
                                     fontWeight = FontWeight.Medium
@@ -281,38 +285,85 @@ fun SavedMealsScreen(
                 }
             }
 
-            // ── Meal list ───────────────────────────────────────────────────
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 16.dp,
-                    bottom = 24.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                // Section header — "TODAY"
-                item {
-                    Text(
-                        text = "TODAY",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = TextGhost,
-                        letterSpacing = 0.9.sp,
-                        modifier = Modifier.padding(
-                            horizontal = 4.dp,
-                            vertical = 4.dp
+            // ── Meal list — loading / error / empty / content ──────────────
+            Box(modifier = Modifier.fillMaxSize()) {
+                when (mealsState) {
+                    is UiState.Loading -> {
+                        CircularProgressIndicator(
+                            modifier = Modifier.align(Alignment.Center),
+                            color = Orange
                         )
-                    )
-                }
+                    }
+                    is UiState.Error -> {
+                        Text(
+                            text = mealsState.message,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .padding(horizontal = 32.dp),
+                            color = TextSecondary,
+                            textAlign = TextAlign.Center,
+                            fontSize = 14.sp
+                        )
+                    }
+                    is UiState.Success -> {
+                        val meals = mealsState.data
+                        if (meals.isEmpty()) {
+                            Column(
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(horizontal = 32.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "No meals yet",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = TextPrimary
+                                )
+                                Spacer(Modifier.height(4.dp))
+                                Text(
+                                    text = "Tap + to create your first meal",
+                                    fontSize = 13.sp,
+                                    color = TextSecondary,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        } else {
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize(),
+                                contentPadding = PaddingValues(
+                                    start = 16.dp,
+                                    end = 16.dp,
+                                    top = 16.dp,
+                                    bottom = 24.dp
+                                ),
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                // Section header — "TODAY"
+                                item {
+                                    Text(
+                                        text = "TODAY",
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = TextGhost,
+                                        letterSpacing = 0.9.sp,
+                                        modifier = Modifier.padding(
+                                            horizontal = 4.dp,
+                                            vertical = 4.dp
+                                        )
+                                    )
+                                }
 
-                items(meals, key = { it.id }) { meal ->
-                    SavedMealCard(
-                        meal = meal,
-                        onClick = { onMealClicked(meal) },
-                        onDelete = { onDeleteMeal(meal) }
-                    )
+                                items(meals, key = { it.id }) { meal ->
+                                    SavedMealCard(
+                                        meal = meal,
+                                        onClick = { onMealClicked(meal) },
+                                        onDelete = { onDeleteMeal(meal) }
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -708,7 +759,7 @@ private val previewMeals = listOf(
 private fun SavedMealsScreenPreview() {
     MacroForgeTheme {
         SavedMealsScreen(
-            meals = previewMeals,
+            mealsState = UiState.Success(previewMeals),
             selectedTag = MealTagUi.ALL,
             searchQuery = "",
             isSearchActive = false,
@@ -734,7 +785,7 @@ private fun SavedMealsScreenPreview() {
 private fun SavedMealsScreenSearchPreview() {
     MacroForgeTheme {
         SavedMealsScreen(
-            meals = previewMeals,
+            mealsState = UiState.Success(previewMeals),
             selectedTag = MealTagUi.ALL,
             searchQuery = "chicken",
             isSearchActive = true,

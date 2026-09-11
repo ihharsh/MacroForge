@@ -45,7 +45,8 @@ fun CreateMealTopBar(
     onBack: () -> Unit,
     onSave: () -> Unit,
     isSaved: Boolean = false,   // optional saved state (TSX shows green + "Saved!" on tap)
-    saveEnabled: Boolean = true
+    saveEnabled: Boolean = true,
+    isSaving: Boolean = false
 ) {
     Surface(
         color = Surface,
@@ -140,11 +141,19 @@ fun CreateMealTopBar(
                     vertical = 0.dp
                 )
             ) {
-                Text(
-                    text = if (isSaved) "Saved!" else "Save",
-                    style = ButtonLabel,        // 13sp, Bold, letterSpacing:-0.13sp
-                    color = Color.White
-                )
+                if (isSaving) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(16.dp),
+                        color = Color.White,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text(
+                        text = if (isSaved) "Saved!" else "Save",
+                        style = ButtonLabel,        // 13sp, Bold, letterSpacing:-0.13sp
+                        color = Color.White
+                    )
+                }
             }
         }
     }

@@ -47,7 +47,7 @@ import com.example.macroforge.core.ui.theme.TextPrimary
 import com.example.macroforge.core.ui.theme.TextSecondary
 import com.example.macroforge.feature_meals.presentation.components.MacroPill
 import com.example.macroforge.feature_meals.presentation.model.FoodUiItem
-import com.example.macroforge.feature_meals.presentation.util.formatMacro
+import com.example.macroforge.core.util.formatMacro
 
 @Composable
 fun MealDetailScreen(

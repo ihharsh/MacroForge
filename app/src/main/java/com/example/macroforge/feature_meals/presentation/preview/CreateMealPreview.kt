@@ -55,6 +55,8 @@ private fun CreateMealScreenEmptySearchPreview() {
             selectedTag = MealTag.POST_WORKOUT,
             onTagSelected = {},
             canSave = true,
+            isSaving = false,
+            saveErrorMessage = null,
             onBack = {}, onSave = {}, onSaveMeal = {},
             onSearchQueryChanged = {}, onClearSearch = {}, onAddFood = {},
             onQuantityChanged = { _, _ -> }, onRemoveFood = {}

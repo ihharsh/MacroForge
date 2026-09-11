@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.macroforge.core.ui.components.PlaceholderScreen
+import com.example.macroforge.feature_foods.presentation.addFoodScreen.AddFoodRoute
+import com.example.macroforge.feature_foods.presentation.foodDatabaseScreen.FoodDatabaseRoute
 import com.example.macroforge.feature_meals.presentation.createMealScreen.CreateMealRoute
 import com.example.macroforge.feature_meals.presentation.mealDetailScreen.MealDetailRoute
 import com.example.macroforge.feature_meals.presentation.savedMealScreen.SavedMealsRoute
@@ -29,10 +31,14 @@ fun MacroForgeNavHost() {
             PlaceholderScreen("Home") { navController.navigate(NavRoute.FoodDatabase.route) }
         }
         composable(NavRoute.FoodDatabase.route) {
-            PlaceholderScreen("Food Database") {}
+            FoodDatabaseRoute(
+                onNavigateToAddFood = { navController.navigate(NavRoute.AddFood.route) }
+            )
         }
         composable(NavRoute.AddFood.route) {
-            PlaceholderScreen("Add Food") {}
+            AddFoodRoute(
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
         composable(NavRoute.CreateMeal.route) {
             CreateMealRoute(
@@ -53,7 +59,7 @@ fun MacroForgeNavHost() {
                     navController.navigate(NavRoute.MealDetail.createRoute(mealId))
                 },
                 onNavigateToHome = {},
-                onNavigateToFoods = {},
+                onNavigateToFoods = { navController.navigate(NavRoute.FoodDatabase.route) },
                 onNavigateToLog = {},
                 onNavigateToProfile = {},
             )

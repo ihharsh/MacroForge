@@ -3,6 +3,7 @@ package com.example.macroforge.feature_meals.presentation.createMealScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.macroforge.core.data.local.FoodSeeder
+import com.example.macroforge.core.domain.UiState
 import com.example.macroforge.feature_foods.domain.FoodRepository
 import com.example.macroforge.feature_foods.domain.model.Food
 import com.example.macroforge.feature_meals.domain.MealRepository
@@ -39,6 +40,9 @@ class CreateMealViewModel @Inject constructor(
     }
     private val _saveSuccess = MutableSharedFlow<Unit>()
     val saveSuccess = _saveSuccess.asSharedFlow()
+
+    private val _saveState = MutableStateFlow<UiState<Unit>?>(null)
+    val saveState: StateFlow<UiState<Unit>?> = _saveState
 
     private val _mealName = MutableStateFlow("")
     val mealName: StateFlow<String> = _mealName
@@ -98,6 +102,7 @@ class CreateMealViewModel @Inject constructor(
         if (name.isBlank() || foods.isEmpty()) return
 
         viewModelScope.launch {
+            _saveState.value = UiState.Loading
             val now = System.currentTimeMillis()
             val meal = Meal(
                 mealId = UUID.randomUUID().toString(),
@@ -110,8 +115,15 @@ class CreateMealViewModel @Inject constructor(
                 syncStatus = "PENDING",
                 entries = foods.map { (food, quantity) -> MealFoodEntry(food, quantity) }
             )
-            mealRepository.saveMeal(meal)
-            _saveSuccess.emit(Unit)
+            try {
+                mealRepository.saveMeal(meal)
+                _saveState.value = UiState.Success(Unit)
+                _saveSuccess.emit(Unit)
+            } catch (cancellation: kotlinx.coroutines.CancellationException) {
+                throw cancellation
+            } catch (error: Exception) {
+                _saveState.value = UiState.Error(error.message ?: "Couldn't save meal. Please try again.")
+            }
         }
     }
 
