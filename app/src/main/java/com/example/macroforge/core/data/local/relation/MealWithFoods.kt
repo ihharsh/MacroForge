@@ -9,15 +9,20 @@ import com.example.macroforge.core.data.local.entity.MealFoodCrossRef
 
 // relation/MealWithFoods.kt
 data class MealWithFoods(
-    @Embedded val meal: MealEntity,
+
+    @Embedded
+    val meal: MealEntity,
+
     @Relation(
         parentColumn = "mealId",
         entityColumn = "foodId",
-        associateBy = Junction(
-            value = MealFoodCrossRef::class,
-            parentColumn = "mealId",
-            entityColumn = "foodId"
-        )
+        associateBy = Junction(MealFoodCrossRef::class)
     )
-    val foods: List<FoodEntity>
+    val foods: List<FoodEntity>,
+
+    @Relation(
+        parentColumn = "mealId",
+        entityColumn = "mealId"
+    )
+    val crossRefs: List<MealFoodCrossRef>
 )

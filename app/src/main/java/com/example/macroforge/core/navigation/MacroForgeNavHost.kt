@@ -7,7 +7,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.macroforge.core.ui.components.PlaceholderScreen
-import com.example.macroforge.feature_meals.presentation.CreateMealRoute
+import com.example.macroforge.feature_meals.presentation.createMealScreen.CreateMealRoute
+import com.example.macroforge.feature_meals.presentation.savedMealScreen.SavedMealsRoute
+
 //TODO()
 // compose navigation guide
 //https://levelup.gitconnected.com/navigation-in-android-jetpack-compose-a-practical-guide-4d8037b07a87
@@ -21,7 +23,10 @@ fun MacroForgeNavHost() {
     ) {
         composable(NavRoute.Splash.route) {
 //            PlaceholderScreen("Splash") { navController.navigate(NavRoute.SignIn.route) }
-            CreateMealRoute()
+            CreateMealRoute(
+                onNavigateBack = {},
+                onNavigateToSaveMeal = {navController.navigate(NavRoute.SavedMeals.route)}
+            )
         }
         composable(NavRoute.SignIn.route) {
             PlaceholderScreen("Sign In") { navController.navigate(NavRoute.Home.route) }
@@ -45,7 +50,14 @@ fun MacroForgeNavHost() {
             PlaceholderScreen("Save Meal") {}
         }
         composable(NavRoute.SavedMeals.route) {
-            PlaceholderScreen("Saved Meals") {}
+            SavedMealsRoute(
+                onNavigateToCreateMeal = { navController.navigate(NavRoute.Splash.route) },
+                onNavigateToMealDetail = {},
+                onNavigateToHome = {},
+                onNavigateToFoods = {},
+                onNavigateToLog = {},
+                onNavigateToProfile = {},
+            )
         }
         composable(
             route = NavRoute.MealDetail.route,

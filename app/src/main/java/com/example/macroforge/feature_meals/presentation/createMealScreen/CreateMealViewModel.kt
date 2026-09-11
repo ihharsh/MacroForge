@@ -1,4 +1,4 @@
-package com.example.macroforge.feature_meals.presentation
+package com.example.macroforge.feature_meals.presentation.createMealScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,9 +12,11 @@ import com.example.macroforge.feature_meals.domain.MealRepository
 import com.example.macroforge.feature_meals.domain.usecase.CalculateMealMacrosUseCase
 import com.example.macroforge.feature_meals.domain.usecase.MacroTotals
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
@@ -34,6 +36,8 @@ class CreateMealViewModel @Inject constructor(
     init {
         viewModelScope.launch { foodSeeder.seedIfNeeded() }
     }
+    private val _saveSuccess = MutableSharedFlow<Unit>()
+    val saveSuccess = _saveSuccess.asSharedFlow()
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
@@ -42,7 +46,7 @@ class CreateMealViewModel @Inject constructor(
         .flatMapLatest { query ->
             if (query.isBlank()) flowOf(emptyList()) else foodRepository.searchFoods(query)
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5000), emptyList())
 
     private val _selectedFoods = MutableStateFlow<Map<FoodEntity, Float>>(emptyMap())
     val selectedFoods: StateFlow<Map<FoodEntity, Float>> = _selectedFoods
@@ -54,7 +58,9 @@ class CreateMealViewModel @Inject constructor(
                 quantities = selected.entries.associate { it.key.foodId to it.value }
             )
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MacroTotals(0f, 0f, 0f, 0f))
+        .stateIn(viewModelScope, SharingStarted.Companion.WhileSubscribed(5000),
+            MacroTotals(0f, 0f, 0f, 0f)
+        )
 
     fun onSearchQueryChanged(query: String) { _searchQuery.value = query }
 
@@ -70,7 +76,7 @@ class CreateMealViewModel @Inject constructor(
         _selectedFoods.value = _selectedFoods.value - food
     }
 
-    fun saveMeal(name: String, tag: MealTag, onSaved: () -> Unit) {
+    fun saveMeal(name: String, tag: MealTag) {
         viewModelScope.launch {
             val mealId = UUID.randomUUID().toString()
             val meal = MealEntity(mealId, name, null, tag, ownerId = "local_user")
@@ -78,11 +84,11 @@ class CreateMealViewModel @Inject constructor(
                 MealFoodCrossRef(mealId, food.foodId, qty)
             }
             mealRepository.saveMeal(meal, crossRefs)
-            onSaved()
+            _saveSuccess.emit(Unit)
         }
     }
 
-    fun removeSearchQuery() {
+    fun clearSearchQuery() {
         _searchQuery.value = ""
     }
 }
