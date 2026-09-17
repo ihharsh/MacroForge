@@ -7,6 +7,7 @@ import com.example.macroforge.feature_meals.domain.MealRepository
 import com.example.macroforge.feature_meals.domain.model.Meal
 import com.example.macroforge.feature_meals.domain.usecase.CalculateDailyTotalsUseCase
 import com.example.macroforge.feature_meals.presentation.util.toDomainTag
+import com.example.macroforge.feature_profile.domain.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +28,8 @@ data class SavedMealsUiState(
     val searchQuery: String = "",
     val isSearchActive: Boolean = false,
     val selectedTag: MealTagUi = MealTagUi.ALL,
-    val totalKcalToday: Int = 0
+    val totalKcalToday: Int = 0,
+    val dailyCalorieGoal: Int = 2000
 )
 
 // Everything the UI can ask this screen's ViewModel to do.
@@ -39,10 +41,19 @@ sealed interface SavedMealsEvent {
     data class DeleteMeal(val mealId: String) : SavedMealsEvent
 }
 
+// Intermediate holder so the final combine() doesn't need a 6-arg overload.
+private data class MealsAndFilters(
+    val mealsState: UiState<List<Meal>>,
+    val searchQuery: String,
+    val isSearchActive: Boolean,
+    val selectedTag: MealTagUi
+)
+
 @HiltViewModel
 class SavedMealsViewModel @Inject constructor(
     private val mealRepository: MealRepository,
-    private val calculateDailyTotals: CalculateDailyTotalsUseCase
+    private val calculateDailyTotals: CalculateDailyTotalsUseCase,
+    private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -62,15 +73,24 @@ class SavedMealsViewModel @Inject constructor(
         .catch { emit(emptyList()) }
         .map { calculateDailyTotals(it).calories.toInt() }
 
+    private val dailyCalorieGoal: Flow<Int> = userPreferencesRepository.userPreferences
+        .map { it.dailyCalorieGoal }
+
+    private val mealsAndFilters: Flow<MealsAndFilters> =
+        combine(mealsState, _searchQuery, _isSearchActive, _selectedTag) { meals, query, isActive, tag ->
+            MealsAndFilters(meals, query, isActive, tag)
+        }
+
     val uiState: StateFlow<SavedMealsUiState> = combine(
-        mealsState, _searchQuery, _isSearchActive, _selectedTag, totalKcalToday
-    ) { meals, query, isActive, tag, kcalToday ->
+        mealsAndFilters, totalKcalToday, dailyCalorieGoal
+    ) { filters, kcalToday, calorieGoal ->
         SavedMealsUiState(
-            mealsState = meals,
-            searchQuery = query,
-            isSearchActive = isActive,
-            selectedTag = tag,
-            totalKcalToday = kcalToday
+            mealsState = filters.mealsState,
+            searchQuery = filters.searchQuery,
+            isSearchActive = filters.isSearchActive,
+            selectedTag = filters.selectedTag,
+            totalKcalToday = kcalToday,
+            dailyCalorieGoal = calorieGoal
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), SavedMealsUiState())
 

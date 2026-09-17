@@ -4,6 +4,8 @@ import com.example.macroforge.feature_foods.data.FoodRepositoryImpl
 import com.example.macroforge.feature_foods.domain.FoodRepository
 import com.example.macroforge.feature_meals.data.MealRepositoryImpl
 import com.example.macroforge.feature_meals.domain.MealRepository
+import com.example.macroforge.feature_profile.data.UserPreferencesRepositoryImpl
+import com.example.macroforge.feature_profile.domain.UserPreferencesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,4 +21,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindMealRepository(impl: MealRepositoryImpl): MealRepository
+
+    @Binds
+    abstract fun bindUserPreferencesRepository(impl: UserPreferencesRepositoryImpl): UserPreferencesRepository
 }

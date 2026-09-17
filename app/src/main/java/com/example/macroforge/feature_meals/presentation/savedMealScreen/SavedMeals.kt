@@ -30,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.macroforge.core.domain.UiState
 import com.example.macroforge.core.ui.theme.*
+import java.time.Instant
+import java.time.ZoneId
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UI Models  (move to model/ package in real project)
@@ -52,13 +54,42 @@ data class SavedMealUiItem(
     val name: String,
     val tag: MealTagUi,
     val time: String,           // e.g. "7:30 AM"
+    val createdAt: Long,        // epoch millis — used to group by day
     val calories: Int,
     val protein: Float,
     val carbs: Float,
     val fats: Float,
     val syncStatus: SyncStatus,
-    val calorieGoal: Int = 800  // used for calorie bar proportion
+    val calorieGoal: Int        // daily calorie goal, from user preferences
 )
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Recency grouping — Today / Yesterday / Older, by local calendar day.
+// Exact per-day breakdown for older history belongs to the upcoming Log
+// screen (date navigation); this list only needs three buckets.
+// ─────────────────────────────────────────────────────────────────────────────
+
+private fun groupByRecency(meals: List<SavedMealUiItem>): List<Pair<String, List<SavedMealUiItem>>> {
+    val zone = ZoneId.systemDefault()
+    val today = Instant.now().atZone(zone).toLocalDate()
+    val yesterday = today.minusDays(1)
+
+    val buckets = linkedMapOf<String, MutableList<SavedMealUiItem>>()
+    meals.forEach { meal ->
+        val mealDate = Instant.ofEpochMilli(meal.createdAt).atZone(zone).toLocalDate()
+        val label = when (mealDate) {
+            today -> "TODAY"
+            yesterday -> "YESTERDAY"
+            else -> "OLDER"
+        }
+        buckets.getOrPut(label) { mutableListOf() }.add(meal)
+    }
+
+    // Fixed section order, regardless of which bucket was populated first.
+    return listOf("TODAY", "YESTERDAY", "OLDER").mapNotNull { label ->
+        buckets[label]?.let { label to it }
+    }
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tag color helpers
@@ -329,6 +360,7 @@ fun SavedMealsScreen(
                                 )
                             }
                         } else {
+                            val groups = remember(meals) { groupByRecency(meals) }
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
                                 contentPadding = PaddingValues(
@@ -339,27 +371,28 @@ fun SavedMealsScreen(
                                 ),
                                 verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
-                                // Section header — "TODAY"
-                                item {
-                                    Text(
-                                        text = "TODAY",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = TextGhost,
-                                        letterSpacing = 0.9.sp,
-                                        modifier = Modifier.padding(
-                                            horizontal = 4.dp,
-                                            vertical = 4.dp
+                                groups.forEach { (sectionLabel, mealsInSection) ->
+                                    item(key = "header_$sectionLabel") {
+                                        Text(
+                                            text = sectionLabel,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = TextGhost,
+                                            letterSpacing = 0.9.sp,
+                                            modifier = Modifier.padding(
+                                                horizontal = 4.dp,
+                                                vertical = 4.dp
+                                            )
                                         )
-                                    )
-                                }
+                                    }
 
-                                items(meals, key = { it.id }) { meal ->
-                                    SavedMealCard(
-                                        meal = meal,
-                                        onClick = { onMealClicked(meal) },
-                                        onDelete = { onDeleteMeal(meal) }
-                                    )
+                                    items(mealsInSection, key = { it.id }) { meal ->
+                                        SavedMealCard(
+                                            meal = meal,
+                                            onClick = { onMealClicked(meal) },
+                                            onDelete = { onDeleteMeal(meal) }
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -726,27 +759,29 @@ private fun BottomNavItem(
 private val previewMeals = listOf(
     SavedMealUiItem(
         id = "1", name = "High Protein Breakfast",
-        tag = MealTagUi.BREAKFAST, time = "7:30 AM",
+        tag = MealTagUi.BREAKFAST, time = "7:30 AM", createdAt = System.currentTimeMillis(),
         calories = 594, protein = 63f, carbs = 43f, fats = 17f,
-        syncStatus = SyncStatus.SYNCED, calorieGoal = 800
+        syncStatus = SyncStatus.SYNCED, calorieGoal = 2000
     ),
     SavedMealUiItem(
         id = "2", name = "Pre Workout Fuel",
-        tag = MealTagUi.PRE_WORKOUT, time = "11:00 AM",
+        tag = MealTagUi.PRE_WORKOUT, time = "11:00 AM", createdAt = System.currentTimeMillis(),
         calories = 412, protein = 38f, carbs = 52f, fats = 8f,
-        syncStatus = SyncStatus.SYNCED, calorieGoal = 800
+        syncStatus = SyncStatus.SYNCED, calorieGoal = 2000
     ),
     SavedMealUiItem(
         id = "3", name = "Chicken Rice Bowl",
         tag = MealTagUi.LUNCH, time = "1:15 PM",
+        createdAt = System.currentTimeMillis() - 86_400_000L, // yesterday
         calories = 680, protein = 58f, carbs = 71f, fats = 14f,
-        syncStatus = SyncStatus.PENDING, calorieGoal = 800
+        syncStatus = SyncStatus.PENDING, calorieGoal = 2000
     ),
     SavedMealUiItem(
         id = "4", name = "Evening Snack",
         tag = MealTagUi.SNACK, time = "4:00 PM",
+        createdAt = System.currentTimeMillis() - 3 * 86_400_000L, // older
         calories = 220, protein = 12f, carbs = 28f, fats = 7f,
-        syncStatus = SyncStatus.SYNCED, calorieGoal = 800
+        syncStatus = SyncStatus.SYNCED, calorieGoal = 2000
     ),
 )
 

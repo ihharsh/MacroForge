@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
+    appfn:description="Provides functions for searching MacroForge's food catalog and creating saved meals.
+Operational Patterns:
+  - Always call 'searchFoods' first for each ingredient to resolve it to a stable foodId and its native serving unit — never invent a foodId.
+  - If 'searchFoods' returns more than one plausible match for a vague term, ask the user which one they meant rather than guessing.
+  - Pass each ingredient's quantity to 'createMeal' in that food's own serving unit (e.g. a count of 4 for a food whose unit is &quot;egg&quot;, or 500 for a food whose unit is &quot;g&quot;) — never convert or guess a conversion.
+  - Call 'getMeal' with the returned mealId to confirm what was actually saved.
+Constraints:
+  - A meal name cannot be blank, and at least one ingredient is required.
+  - If any ingredient's foodId is invalid or its quantity is not positive, no meal is created at all."
+    appfn:displayDescription="@string/app_function_app_display_description"/>

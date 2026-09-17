@@ -3,16 +3,13 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.example.macroforge"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
 
     defaultConfig {
@@ -22,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.macroforge.HiltTestRunner"
     }
 
     buildTypes {
@@ -40,9 +37,6 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-    kotlinOptions {
-        jvmTarget = "17"
     }
 }
 
@@ -70,6 +64,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
     //room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
@@ -78,4 +74,14 @@ dependencies {
     androidTestImplementation(libs.androidx.room.testing)
     // kotlin serialization
     implementation(libs.kotlinx.serialization.json)
+    // paging
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.room.paging)
+    // datastore (user preferences)
+    implementation(libs.androidx.datastore.preferences)
+    // app functions
+    implementation(libs.androidx.appfunctions)
+    ksp(libs.androidx.appfunctions.compiler)
+    androidTestImplementation(libs.androidx.appfunctions.testing)
 }

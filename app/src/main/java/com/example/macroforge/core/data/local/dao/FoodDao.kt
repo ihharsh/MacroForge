@@ -1,5 +1,6 @@
 package com.example.macroforge.core.data.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -22,6 +23,14 @@ interface FoodDao {
     @Query("SELECT * FROM foods ORDER BY foodName ASC")
     fun getAllFoods(): Flow<List<FoodEntity>>
 
+    @Query("SELECT * FROM foods WHERE foodId = :foodId")
+    suspend fun getFoodById(foodId: String): FoodEntity?
+
     @Query("SELECT * FROM foods WHERE foodName LIKE '%' || :query || '%'")
     fun searchFoods(query: String): Flow<List<FoodEntity>>
+
+    // Paged variant for the Food Database browse screen — an empty query
+    // matches every row, so this also serves the unfiltered "browse all" case.
+    @Query("SELECT * FROM foods WHERE (:query = '' OR foodName LIKE '%' || :query || '%') ORDER BY foodName ASC")
+    fun getFoodsPaged(query: String): PagingSource<Int, FoodEntity>
 }

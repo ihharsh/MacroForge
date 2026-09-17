@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,7 +34,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.macroforge.core.domain.UiState
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemKey
 import com.example.macroforge.core.ui.components.SearchBar
 import com.example.macroforge.core.ui.theme.Background
 import com.example.macroforge.core.ui.theme.Orange
@@ -49,7 +52,7 @@ import com.example.macroforge.feature_foods.presentation.model.FoodBrowseUiItem
 fun FoodDatabaseScreen(
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
-    foodsState: UiState<List<FoodBrowseUiItem>>,
+    foods: LazyPagingItems<FoodBrowseUiItem>,
     onAddFoodClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -88,16 +91,17 @@ fun FoodDatabaseScreen(
             )
 
             Box(modifier = Modifier.fillMaxSize()) {
-                when (foodsState) {
-                    is UiState.Loading -> {
+                val refreshState = foods.loadState.refresh
+                when {
+                    refreshState is LoadState.Loading -> {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center),
                             color = Orange
                         )
                     }
-                    is UiState.Error -> {
+                    refreshState is LoadState.Error -> {
                         Text(
-                            text = foodsState.message,
+                            text = refreshState.error.message ?: "Couldn't load foods.",
                             modifier = Modifier
                                 .align(Alignment.Center)
                                 .padding(horizontal = 32.dp),
@@ -105,21 +109,50 @@ fun FoodDatabaseScreen(
                             textAlign = TextAlign.Center
                         )
                     }
-                    is UiState.Success -> {
-                        val foods = foodsState.data
-                        if (foods.isEmpty()) {
-                            Text(
-                                text = "No foods found",
-                                modifier = Modifier.align(Alignment.Center),
-                                color = TextSecondary
-                            )
-                        } else {
-                            LazyColumn(
-                                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                items(foods, key = { it.id }) { food ->
-                                    FoodBrowseRow(food)
+                    foods.itemCount == 0 -> {
+                        Text(
+                            text = "No foods found",
+                            modifier = Modifier.align(Alignment.Center),
+                            color = TextSecondary
+                        )
+                    }
+                    else -> {
+                        LazyColumn(
+                            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(count = foods.itemCount, key = foods.itemKey { it.id }) { index ->
+                                foods[index]?.let { food -> FoodBrowseRow(food) }
+                            }
+
+                            if (foods.loadState.append is LoadState.Loading) {
+                                item {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator(
+                                            modifier = Modifier.size(24.dp),
+                                            color = Orange,
+                                            strokeWidth = 2.dp
+                                        )
+                                    }
+                                }
+                            }
+
+                            if (foods.loadState.append is LoadState.Error) {
+                                item {
+                                    Text(
+                                        text = "Couldn't load more foods.",
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(vertical = 12.dp),
+                                        color = TextSecondary,
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 12.sp
+                                    )
                                 }
                             }
                         }

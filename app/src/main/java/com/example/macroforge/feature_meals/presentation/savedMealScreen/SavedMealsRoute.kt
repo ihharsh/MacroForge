@@ -29,7 +29,7 @@ fun SavedMealsRoute(
     var pendingDeleteMeal by remember { mutableStateOf<SavedMealUiItem?>(null) }
 
     // Map domain UiState<List<Meal>> -> UiState<List<SavedMealUiItem>>
-    val mealUiState = remember(uiState.mealsState) {
+    val mealUiState = remember(uiState.mealsState, uiState.dailyCalorieGoal) {
         when (val state = uiState.mealsState) {
             is UiState.Loading -> UiState.Loading
             is UiState.Error -> UiState.Error(state.message)
@@ -53,13 +53,14 @@ fun SavedMealsRoute(
                         name        = meal.mealName,
                         tag         = meal.mealTag.toUiTag(),
                         time        = meal.createdAt.toFormattedTime(),
+                        createdAt   = meal.createdAt,
                         calories    = totalCal.toInt(),
                         protein     = totalProtein,
                         carbs       = totalCarbs,
                         fats        = totalFats,
                         syncStatus  = if (meal.syncStatus == "SYNCED") SyncStatus.SYNCED
                         else SyncStatus.PENDING,
-                        calorieGoal = 800   // TODO: pull from user profile/settings
+                        calorieGoal = uiState.dailyCalorieGoal
                     )
                 }
             )

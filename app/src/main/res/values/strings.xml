@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MacroForge</string>
+    <string name="app_function_app_description">MacroForge is a nutrition tracking app for searching foods and building meals. Use this when a user wants to create or look up a meal by voice.</string>
+    <string name="app_function_app_display_description">MacroForge Meal Builder</string>
 </resources>
